@@ -63,7 +63,7 @@
     <link href="http://yoursite.com/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
     <published>2016-12-15T14:02:27.250Z</published>
-    <updated>2016-12-16T13:42:05.553Z</updated>
+    <updated>2016-12-16T13:44:42.106Z</updated>
     
     <content type="html"><![CDATA[<p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用Github+Hexo搭建属于自己的博客，不需要自己搭建服务器，可以任意编辑内容和主题，简直爽歪歪了。</p>
@@ -101,7 +101,7 @@
 <p>输入完成之后，屏幕会显示如下信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
 <h5 id="在Github账户中密钥"><a href="#在Github账户中密钥" class="headerlink" title="在Github账户中密钥"></a>在Github账户中密钥</h5><ul>
-<li><p>配置密钥<br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" target="_blank" rel="external">ssh</a><br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" target="_blank" rel="external">ssh</a><br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" target="_blank" rel="external">ssh</a></p>
+<li><p>配置密钥<br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"></p>
 </li>
 <li><p>测试<br>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
