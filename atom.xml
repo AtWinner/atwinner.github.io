@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-16T09:07:52.709Z</updated>
+  <updated>2016-12-16T09:11:01.015Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2016/12/16/MarsDaemon/"/>
     <id>http://yoursite.com/2016/12/16/MarsDaemon/</id>
     <published>2016-12-16T09:01:15.463Z</published>
-    <updated>2016-12-16T09:07:52.709Z</updated>
+    <updated>2016-12-16T09:11:01.015Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在特定的业务场景中，我们可能会需要app在后台坐一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
 <h2 id="一种无效的做法"><a href="#一种无效的做法" class="headerlink" title="一种无效的做法"></a>一种无效的做法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    Log.e(TAG, <span class="string">"onDestory"</span>);</div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, Service.class);</div><div class="line">    startService(intent);</div><div class="line">    <span class="keyword">super</span>.onDestroy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此方法企图利用Service是生命周期去调用其本身，事实证明这种方法是无效的，在进程被杀死时，Service根本不会执行onDestroy就被直接清出内存了，因此靠自身的力量提高存活率的方式也就不可行了。</p>
 <h2 id="Marsdaemon"><a href="#Marsdaemon" class="headerlink" title="Marsdaemon"></a>Marsdaemon</h2><ul>
@@ -51,7 +51,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在特定的业务场景中，我们可能会需要app在后台坐一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也
     
     </summary>
     
@@ -63,7 +63,7 @@
     <link href="http://yoursite.com/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
     <published>2016-12-15T14:02:27.250Z</published>
-    <updated>2016-12-16T02:33:42.151Z</updated>
+    <updated>2016-12-16T13:42:05.553Z</updated>
     
     <content type="html"><![CDATA[<p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用Github+Hexo搭建属于自己的博客，不需要自己搭建服务器，可以任意编辑内容和主题，简直爽歪歪了。</p>
@@ -88,7 +88,64 @@
 <h3 id="安装Hexo插件"><a href="#安装Hexo插件" class="headerlink" title="安装Hexo插件"></a>安装Hexo插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-index --save</div><div class="line">npm install hexo-generator-archive --save</div><div class="line">npm install hexo-generator-category --save</div><div class="line">npm install hexo-generator-tag --save</div><div class="line">npm install hexo-server --save</div><div class="line">npm install hexo-deployer-git --save</div><div class="line">npm install hexo-deployer-heroku --save</div><div class="line">npm install hexo-deployer-rsync --save</div><div class="line">npm install hexo-deployer-openshift --save</div><div class="line">npm install hexo-renderer-marked@0.2 --save</div><div class="line">npm install hexo-renderer-stylus@0.2 --save</div><div class="line">npm install hexo-generator-feed@1 --save</div><div class="line">npm install hexo-generator-sitemap@1 --save</div></pre></td></tr></table></figure>
 <h3 id="本地查看效果"><a href="#本地查看效果" class="headerlink" title="本地查看效果"></a>本地查看效果</h3><p>执行下面语句，执行完即可登录localhost:4000查看效果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate</div><div class="line">hexo server</div></pre></td></tr></table></figure></p>
 <p><img src="http://oi9a3yd8k.bkt.clouddn.com/generate.png" alt="执行效果"></p>
-<p>localhost:4000 效果展示<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_first_page.png" alt="执行效果"><br>至此，Hexo的环境搭建就完成了。</p>
+<p>localhost:4000 效果展示<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_first_page.png" alt="执行效果"><br>至此，Hexo咋本地的环境搭建就完成了。</p>
+<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><h3 id="注册Github账户"><a href="#注册Github账户" class="headerlink" title="注册Github账户"></a>注册Github账户</h3><p>略过</p>
+<h3 id="New-repository"><a href="#New-repository" class="headerlink" title="New repository"></a>New repository</h3><p>注册完成之后登录点击new repository<br><a href="http://oi9a3yd8k.bkt.clouddn.com/github_new_reponsitory.png" target="_blank" rel="external">新建</a></p>
+<h3 id="配置SSH密钥"><a href="#配置SSH密钥" class="headerlink" title="配置SSH密钥"></a>配置SSH密钥</h3><p>配置Github的SSH密钥可以让本地git项目与远程的github建立链接，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
+<h4 id="查看是否存在SSH密钥"><a href="#查看是否存在SSH密钥" class="headerlink" title="查看是否存在SSH密钥"></a>查看是否存在SSH密钥</h4><p>打开Git Bush，并执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/. ssh</div></pre></td></tr></table></figure></p>
+<p>这是检查User目录下是否存在.ssh目录<br><strong>如果不存在目录则执行如下操作</strong></p>
+<h4 id="创建SSH密钥并在Github账户中添加"><a href="#创建SSH密钥并在Github账户中添加" class="headerlink" title="创建SSH密钥并在Github账户中添加"></a>创建SSH密钥并在Github账户中添加</h4><h5 id="创建SSH密钥"><a href="#创建SSH密钥" class="headerlink" title="创建SSH密钥"></a>创建SSH密钥</h5><p>打开Git Bush，并执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ssh -keygen -t rsa -C <span class="string">"your_email@example.com"</span></div><div class="line"><span class="comment">#这将按照你提供的邮箱地址，创建一对密钥</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure></p>
+<p>直接回车，则将密钥按默认文件进行存储。此时也可以输入特定的文件名，比如/c/Users/you/.ssh/github_rsa</p>
+<p>接着，根据提示，你需要输入密码和确认密码（说到这里，如果你很放心，其实可以不用密码，就是到输密码的地方，都直接回车，所以每次push就只管回车就行了。所谓的最安全的密码，就是没有密码 哈哈）。相关提示如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [Type a passphrase]</div><div class="line">Enter same passphrase again: [Type passphrase again]</div></pre></td></tr></table></figure>
+<p>输入完成之后，屏幕会显示如下信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
+<h5 id="在Github账户中密钥"><a href="#在Github账户中密钥" class="headerlink" title="在Github账户中密钥"></a>在Github账户中密钥</h5><ul>
+<li><p>配置密钥<br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" target="_blank" rel="external">ssh</a><br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" target="_blank" rel="external">ssh</a><br><a href="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" target="_blank" rel="external">ssh</a></p>
+</li>
+<li><p>测试<br>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果是下面的反馈：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure></p>
+<p>输入yes即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
+<h5 id="设置用户信息"><a href="#设置用户信息" class="headerlink" title="设置用户信息"></a>设置用户信息</h5><p>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。<br>Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的，名字必须是你的真名，而不是GitHub的昵称。    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"cnfeat"</span>//用户名</div><div class="line">git config --global user.email  <span class="string">"cnfeat@gmail.com"</span>//填写自己的邮箱</div></pre></td></tr></table></figure>
+<h3 id="将本地的Hexo文件部署到Github"><a href="#将本地的Hexo文件部署到Github" class="headerlink" title="将本地的Hexo文件部署到Github"></a>将本地的Hexo文件部署到Github</h3><ul>
+<li>登录Github，打开username.github.io的项目</li>
+<li>复制https类型的地址</li>
+<li>用记事本打开_config.yml文件</li>
+<li><p>在配置文件中保存如下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: https://github.com/Username/username.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+</li>
+<li><p>在Hexo文件夹下执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure></p>
+<p>执行完之后会让你输入github的账号和密码，输入完后就可以登录我们自己的部署在Github Pages服务器上的博客了。</p>
+<h2 id="使用皮肤"><a href="#使用皮肤" class="headerlink" title="使用皮肤"></a>使用皮肤</h2><p>为Hexo开发的主题有很多，你可以在<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>中找到。下面以我使用的Material主题为例。</p>
+<h3 id="Clone主题"><a href="#Clone主题" class="headerlink" title="Clone主题"></a>Clone主题</h3><p>打开Hexo文件夹并执行Git Bash，执行命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/viosey/hexo-theme-material(此处地址替换成你需要使用的主题的地址) themes/hexo-theme-material</div></pre></td></tr></table></figure></p>
+<h3 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h3><p>下载完成后，打开Hexo文件夹下的配置文件 <strong>_config.yml</strong><br>修改参数为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: hexo-theme-material</div></pre></td></tr></table></figure></p>
+<h3 id="重新部署到本地"><a href="#重新部署到本地" class="headerlink" title="重新部署到本地"></a>重新部署到本地</h3><h3 id="如果效果满意，将它部署到Github上"><a href="#如果效果满意，将它部署到Github上" class="headerlink" title="如果效果满意，将它部署到Github上"></a>如果效果满意，将它部署到Github上</h3><p>打开Hexo文件夹，右键Git Bash<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo clean (必须要，不然有时因为缓存问题，服务器更新不了主题)</div><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure></p>
+<h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><p>Hexo的博文都是以*.md即markdown文件的形式统一管理在source_posts文件夹下面的<br>新增一篇博文只需要在此文件夹下新建一个md文件即可。</p>
+<h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><p>Markdown 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。</p>
+<p><strong>Markdown有什么优点？</strong></p>
+<ul>
+<li>专注你的文字内容而不是排版样式。</li>
+<li>轻松的导出 HTML、PDF 和本身的 .md 文件。</li>
+<li>纯文本内容，兼容所有的文本编辑器与字处理软件。</li>
+<li>可读，直观。适合所有人的写作语言。</li>
+</ul>
+<p><strong>Markdown语法</strong></p>
+<ul>
+<li><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">http://www.williamlong.info/archives/4319.html</a></li>
+</ul>
+<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul>
+<li><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">http://www.williamlong.info/archives/4319.html</a></li>
+</ul>
+<p>END</p>
 ]]></content>
     
     <summary type="html">
