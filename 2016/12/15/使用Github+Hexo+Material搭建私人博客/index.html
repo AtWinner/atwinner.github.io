@@ -351,28 +351,34 @@
 <h3 id="Hexo初始化配置"><a href="#Hexo初始化配置" class="headerlink" title="Hexo初始化配置"></a>Hexo初始化配置</h3><p>安装完成后，根据自己建好的目录，执行以下操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div><div class="line">$ npm install</div></pre></td></tr></table></figure></p>
 <p>安装 Hexo 完成后，文件目录显示如下<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_init.png" alt="Hexo安装完成"></p>
 <h3 id="安装Hexo插件"><a href="#安装Hexo插件" class="headerlink" title="安装Hexo插件"></a>安装Hexo插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-index --save</div><div class="line">npm install hexo-generator-archive --save</div><div class="line">npm install hexo-generator-category --save</div><div class="line">npm install hexo-generator-tag --save</div><div class="line">npm install hexo-server --save</div><div class="line">npm install hexo-deployer-git --save</div><div class="line">npm install hexo-deployer-heroku --save</div><div class="line">npm install hexo-deployer-rsync --save</div><div class="line">npm install hexo-deployer-openshift --save</div><div class="line">npm install hexo-renderer-marked@0.2 --save</div><div class="line">npm install hexo-renderer-stylus@0.2 --save</div><div class="line">npm install hexo-generator-feed@1 --save</div><div class="line">npm install hexo-generator-sitemap@1 --save</div></pre></td></tr></table></figure>
-<h3 id="本地查看效果"><a href="#本地查看效果" class="headerlink" title="本地查看效果"></a>本地查看效果</h3><p>执行下面语句，执行完即可登录localhost:4000查看效果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate</div><div class="line">hexo server</div></pre></td></tr></table></figure></p>
+<h3 id="本地查看效果"><a href="#本地查看效果" class="headerlink" title="本地查看效果"></a>本地查看效果</h3><p>执行下面语句，执行完即可登录localhost:4000查看效果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate</div><div class="line">hexo server</div></pre></td></tr></table></figure>
 <p><img src="http://oi9a3yd8k.bkt.clouddn.com/generate.png" alt="执行效果"></p>
 <p>localhost:4000 效果展示<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_first_page.png" alt="执行效果"><br>至此，Hexo咋本地的环境搭建就完成了。</p>
 <h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><h3 id="注册Github账户"><a href="#注册Github账户" class="headerlink" title="注册Github账户"></a>注册Github账户</h3><p>略过</p>
 <h3 id="New-repository"><a href="#New-repository" class="headerlink" title="New repository"></a>New repository</h3><p>注册完成之后登录点击new repository<br><a href="http://oi9a3yd8k.bkt.clouddn.com/github_new_reponsitory.png" target="_blank" rel="external">新建</a></p>
 <h3 id="配置SSH密钥"><a href="#配置SSH密钥" class="headerlink" title="配置SSH密钥"></a>配置SSH密钥</h3><p>配置Github的SSH密钥可以让本地git项目与远程的github建立链接，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
-<h4 id="查看是否存在SSH密钥"><a href="#查看是否存在SSH密钥" class="headerlink" title="查看是否存在SSH密钥"></a>查看是否存在SSH密钥</h4><p>打开Git Bush，并执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/. ssh</div></pre></td></tr></table></figure></p>
+<h4 id="查看是否存在SSH密钥"><a href="#查看是否存在SSH密钥" class="headerlink" title="查看是否存在SSH密钥"></a>查看是否存在SSH密钥</h4><p>打开Git Bush，并执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/. ssh</div></pre></td></tr></table></figure>
 <p>这是检查User目录下是否存在.ssh目录<br><strong>如果不存在目录则执行如下操作</strong></p>
-<h4 id="创建SSH密钥并在Github账户中添加"><a href="#创建SSH密钥并在Github账户中添加" class="headerlink" title="创建SSH密钥并在Github账户中添加"></a>创建SSH密钥并在Github账户中添加</h4><h5 id="创建SSH密钥"><a href="#创建SSH密钥" class="headerlink" title="创建SSH密钥"></a>创建SSH密钥</h5><p>打开Git Bush，并执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ssh -keygen -t rsa -C <span class="string">"your_email@example.com"</span></div><div class="line"><span class="comment">#这将按照你提供的邮箱地址，创建一对密钥</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure></p>
+<h4 id="创建SSH密钥并在Github账户中添加"><a href="#创建SSH密钥并在Github账户中添加" class="headerlink" title="创建SSH密钥并在Github账户中添加"></a>创建SSH密钥并在Github账户中添加</h4><h5 id="创建SSH密钥"><a href="#创建SSH密钥" class="headerlink" title="创建SSH密钥"></a>创建SSH密钥</h5><p>打开Git Bush，并执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ssh -keygen -t rsa -C <span class="string">"your_email@example.com"</span></div><div class="line"><span class="comment">#这将按照你提供的邮箱地址，创建一对密钥</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure>
 <p>直接回车，则将密钥按默认文件进行存储。此时也可以输入特定的文件名，比如/c/Users/you/.ssh/github_rsa</p>
 <p>接着，根据提示，你需要输入密码和确认密码（说到这里，如果你很放心，其实可以不用密码，就是到输密码的地方，都直接回车，所以每次push就只管回车就行了。所谓的最安全的密码，就是没有密码 哈哈）。相关提示如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [Type a passphrase]</div><div class="line">Enter same passphrase again: [Type passphrase again]</div></pre></td></tr></table></figure>
 <p>输入完成之后，屏幕会显示如下信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
 <h5 id="在Github账户中密钥"><a href="#在Github账户中密钥" class="headerlink" title="在Github账户中密钥"></a>在Github账户中密钥</h5><ul>
-<li><p>配置密钥<br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"></p>
-</li>
-<li><p>测试</p>
-</li>
+<li>配置密钥</li>
 </ul>
-<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure></p>
-<p>如果是下面的反馈：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure></p>
+<p><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"></p>
+<ul>
+<li>测试</li>
+</ul>
+<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
+<p>如果是下面的反馈：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
 <p>输入yes即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
 <h5 id="设置用户信息"><a href="#设置用户信息" class="headerlink" title="设置用户信息"></a>设置用户信息</h5><p>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。<br>Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的，名字必须是你的真名，而不是GitHub的昵称。    </p>
@@ -381,19 +387,23 @@
 <li>登录Github，打开username.github.io的项目</li>
 <li>复制https类型的地址</li>
 <li>用记事本打开_config.yml文件</li>
-<li><p>在配置文件中保存如下内容</p>
+<li>在配置文件中保存如下内容</li>
+</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: https://github.com/Username/username.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
-</li>
-<li><p>在Hexo文件夹下执行</p>
-</li>
+<ul>
+<li>在Hexo文件夹下执行</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
-<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure></p>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure>
 <p>执行完之后会让你输入github的账号和密码，输入完后就可以登录我们自己的部署在Github Pages服务器上的博客了。</p>
 <h2 id="使用皮肤"><a href="#使用皮肤" class="headerlink" title="使用皮肤"></a>使用皮肤</h2><p>为Hexo开发的主题有很多，你可以在<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>中找到。下面以我使用的Material主题为例。</p>
-<h3 id="Clone主题"><a href="#Clone主题" class="headerlink" title="Clone主题"></a>Clone主题</h3><p>打开Hexo文件夹并执行Git Bash，执行命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/viosey/hexo-theme-material(此处地址替换成你需要使用的主题的地址) themes/hexo-theme-material</div></pre></td></tr></table></figure></p>
-<h3 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h3><p>下载完成后，打开Hexo文件夹下的配置文件 <strong>_config.yml</strong><br>修改参数为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: hexo-theme-material</div></pre></td></tr></table></figure></p>
-<h3 id="重新部署到本地"><a href="#重新部署到本地" class="headerlink" title="重新部署到本地"></a>重新部署到本地</h3><h3 id="如果效果满意，将它部署到Github上"><a href="#如果效果满意，将它部署到Github上" class="headerlink" title="如果效果满意，将它部署到Github上"></a>如果效果满意，将它部署到Github上</h3><p>打开Hexo文件夹，右键Git Bash<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo clean (必须要，不然有时因为缓存问题，服务器更新不了主题)</div><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure></p>
+<h3 id="Clone主题"><a href="#Clone主题" class="headerlink" title="Clone主题"></a>Clone主题</h3><p>打开Hexo文件夹并执行Git Bash，执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/viosey/hexo-theme-material(此处地址替换成你需要使用的主题的地址) themes/hexo-theme-material</div></pre></td></tr></table></figure>
+<h3 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h3><p>下载完成后，打开Hexo文件夹下的配置文件 <strong>_config.yml</strong><br>修改参数为:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: hexo-theme-material</div></pre></td></tr></table></figure>
+<h3 id="重新部署到本地"><a href="#重新部署到本地" class="headerlink" title="重新部署到本地"></a>重新部署到本地</h3><h3 id="如果效果满意，将它部署到Github上"><a href="#如果效果满意，将它部署到Github上" class="headerlink" title="如果效果满意，将它部署到Github上"></a>如果效果满意，将它部署到Github上</h3><p>打开Hexo文件夹，右键Git Bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo clean (必须要，不然有时因为缓存问题，服务器更新不了主题)</div><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure>
 <h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><p>Hexo的博文都是以*.md即markdown文件的形式统一管理在source_posts文件夹下面的<br>新增一篇博文只需要在此文件夹下新建一个md文件即可。</p>
 <h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><p>Markdown 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。</p>
 <p><strong>Markdown有什么优点？</strong></p>
