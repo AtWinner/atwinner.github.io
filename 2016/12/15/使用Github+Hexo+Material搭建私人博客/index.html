@@ -366,12 +366,12 @@
 <p>输入完成之后，屏幕会显示如下信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
 <h5 id="在Github账户中密钥"><a href="#在Github账户中密钥" class="headerlink" title="在Github账户中密钥"></a>在Github账户中密钥</h5><ul>
-<li><p>配置密钥<br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"></p>
+<li><p>配置密钥<br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"></p>
 </li>
-<li><p>测试<br>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
+<li><p>测试</p>
 </li>
 </ul>
+<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure></p>
 <p>如果是下面的反馈：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure></p>
 <p>输入yes即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
@@ -385,9 +385,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: https://github.com/Username/username.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
 </li>
 <li><p>在Hexo文件夹下执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
 </li>
 </ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
 <p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure></p>
 <p>执行完之后会让你输入github的账号和密码，输入完后就可以登录我们自己的部署在Github Pages服务器上的博客了。</p>
 <h2 id="使用皮肤"><a href="#使用皮肤" class="headerlink" title="使用皮肤"></a>使用皮肤</h2><p>为Hexo开发的主题有很多，你可以在<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>中找到。下面以我使用的Material主题为例。</p>
