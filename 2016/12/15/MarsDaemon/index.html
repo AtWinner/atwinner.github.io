@@ -15,20 +15,17 @@
 
 
 
-<meta name="description" content="前言在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。
-一种无效的做法123456public v">
+<meta name="description" content="在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 使用MarsDaemon进程常驻">
-<meta property="og:url" content="http://yoursite.com/2016/12/16/MarsDaemon/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/12/15/MarsDaemon/index.html">
 <meta property="og:site_name" content="胡杨林">
-<meta property="og:description" content="前言在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。
-一种无效的做法123456public v">
+<meta property="og:description" content="在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/lib_marsdaemon.png">
-<meta property="og:updated_time" content="2016-12-16T09:11:01.015Z">
+<meta property="og:updated_time" content="2016-12-19T05:54:11.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 使用MarsDaemon进程常驻">
-<meta name="twitter:description" content="前言在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。
-一种无效的做法123456public v">
+<meta name="twitter:description" content="在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。但是，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。">
 <meta name="twitter:image" content="http://oi9a3yd8k.bkt.clouddn.com/lib_marsdaemon.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -82,7 +79,9 @@
 </script>
 
 
-    <script> yiliaConfig.jquery_ui = [false]; </script>
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
 
 
 
@@ -270,8 +269,8 @@
       <div class="body-wrap"><article id="post-MarsDaemon" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/16/MarsDaemon/" class="article-date">
-      <time datetime="2016-12-16T09:01:15.463Z" itemprop="datePublished">2016-12-16</time>
+      <a href="/2016/12/15/MarsDaemon/" class="article-date">
+      <time datetime="2016-12-15T04:00:00.000Z" itemprop="datePublished">2016-12-15</time>
 </a>
 
 
@@ -303,7 +302,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
+        <p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
+<a id="more"></a>
 <h2 id="一种无效的做法"><a href="#一种无效的做法" class="headerlink" title="一种无效的做法"></a>一种无效的做法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    Log.e(TAG, <span class="string">"onDestory"</span>);</div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, Service.class);</div><div class="line">    startService(intent);</div><div class="line">    <span class="keyword">super</span>.onDestroy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此方法企图利用Service是生命周期去调用其本身，事实证明这种方法是无效的，在进程被杀死时，Service根本不会执行onDestroy就被直接清出内存了，因此靠自身的力量提高存活率的方式也就不可行了。</p>
 <h2 id="Marsdaemon"><a href="#Marsdaemon" class="headerlink" title="Marsdaemon"></a>Marsdaemon</h2><ul>
@@ -336,13 +336,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/12/16/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></p>
+        <p><span>本文标题:</span><a href="/2016/12/15/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">胡胡</a></p>
-        <p><span>发布时间:</span>2016-12-16, 17:01:15</p>
-        <p><span>最后更新:</span>2016-12-16, 17:11:01</p>
+        <p><span>发布时间:</span>2016-12-15, 12:00:00</p>
+        <p><span>最后更新:</span>2016-12-19, 13:54:11</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/12/16/MarsDaemon/" title="Android 使用MarsDaemon进程常驻">http://yoursite.com/2016/12/16/MarsDaemon/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/12/16/MarsDaemon/　　作者: 胡胡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/15/MarsDaemon/" title="Android 使用MarsDaemon进程常驻">http://yoursite.com/2016/12/15/MarsDaemon/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/12/15/MarsDaemon/　　作者: 胡胡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -353,6 +353,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/12/15/hello-world/">
+                    Hello World
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -369,7 +375,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一种无效的做法"><span class="toc-number">2.</span> <span class="toc-text">一种无效的做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Marsdaemon"><span class="toc-number">3.</span> <span class="toc-text">Marsdaemon</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从Github获取项目源码"><span class="toc-number">3.1.</span> <span class="toc-text">从Github获取项目源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Marsdaemon"><span class="toc-number">3.2.</span> <span class="toc-text">使用Marsdaemon</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在manifest中声明2个进程分别包含一个Service和一个Receiver"><span class="toc-number">3.2.1.</span> <span class="toc-text">在manifest中声明2个进程分别包含一个Service和一个Receiver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理Application"><span class="toc-number">3.2.2.</span> <span class="toc-text">处理Application</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理其他Class"><span class="toc-number">3.2.3.</span> <span class="toc-text">处理其他Class</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">3.3.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在Android4-4中"><span class="toc-number">3.3.1.</span> <span class="toc-text">在Android4.4中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Android5-中"><span class="toc-number">3.3.2.</span> <span class="toc-text">在Android5+中</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一种无效的做法"><span class="toc-number">1.</span> <span class="toc-text">一种无效的做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Marsdaemon"><span class="toc-number">2.</span> <span class="toc-text">Marsdaemon</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从Github获取项目源码"><span class="toc-number">2.1.</span> <span class="toc-text">从Github获取项目源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Marsdaemon"><span class="toc-number">2.2.</span> <span class="toc-text">使用Marsdaemon</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在manifest中声明2个进程分别包含一个Service和一个Receiver"><span class="toc-number">2.2.1.</span> <span class="toc-text">在manifest中声明2个进程分别包含一个Service和一个Receiver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理Application"><span class="toc-number">2.2.2.</span> <span class="toc-text">处理Application</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理其他Class"><span class="toc-number">2.2.3.</span> <span class="toc-text">处理其他Class</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">2.3.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在Android4-4中"><span class="toc-number">2.3.1.</span> <span class="toc-text">在Android4.4中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Android5-中"><span class="toc-number">2.3.2.</span> <span class="toc-text">在Android5+中</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">后记</span></a></li></ol>
         
     </div>
     <style>
@@ -425,7 +431,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/12/15/hello-world/" title="上一篇: Hello World">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -437,7 +445,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a></li></ul>
 
 
 

@@ -81,7 +81,9 @@
 </script>
 
 
-    <script> yiliaConfig.jquery_ui = [false]; </script>
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
 
 
 
@@ -268,232 +270,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-MarsDaemon" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/16/MarsDaemon/" class="article-date">
-      <time datetime="2016-12-16T09:01:15.463Z" itemprop="datePublished">2016-12-16</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/16/MarsDaemon/">Android 使用MarsDaemon进程常驻</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
-<h2 id="一种无效的做法"><a href="#一种无效的做法" class="headerlink" title="一种无效的做法"></a>一种无效的做法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    Log.e(TAG, <span class="string">"onDestory"</span>);</div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, Service.class);</div><div class="line">    startService(intent);</div><div class="line">    <span class="keyword">super</span>.onDestroy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此方法企图利用Service是生命周期去调用其本身，事实证明这种方法是无效的，在进程被杀死时，Service根本不会执行onDestroy就被直接清出内存了，因此靠自身的力量提高存活率的方式也就不可行了。</p>
-<h2 id="Marsdaemon"><a href="#Marsdaemon" class="headerlink" title="Marsdaemon"></a>Marsdaemon</h2><ul>
-<li>项目地址：<a href="https://github.com/Marswin/MarsDaemon" target="_blank" rel="external">https://github.com/Marswin/MarsDaemon</a></li>
-<li>原理分析：<a href="http://blog.csdn.net/marswin89/article/details/50917098" target="_blank" rel="external">http://blog.csdn.net/marswin89/article/details/50917098</a><br>下面主要讲讲用法</li>
-</ul>
-<h3 id="从Github获取项目源码"><a href="#从Github获取项目源码" class="headerlink" title="从Github获取项目源码"></a>从<a href="https://github.com/Marswin/MarsDaemon" target="_blank" rel="external">Github</a>获取项目源码</h3><p>导入项目之后<br><img src="http://oi9a3yd8k.bkt.clouddn.com/lib_marsdaemon.png" alt="项目目录"><br>之后不要忘记导入module<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dependencies</span> &#123;</div><div class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(<span class="keyword">include</span>: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)</div><div class="line">    testCompile <span class="string">'junit:junit:4.12'</span></div><div class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">':LibMarsdaemon'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="使用Marsdaemon"><a href="#使用Marsdaemon" class="headerlink" title="使用Marsdaemon"></a>使用Marsdaemon</h3><h4 id="在manifest中声明2个进程分别包含一个Service和一个Receiver"><a href="#在manifest中声明2个进程分别包含一个Service和一个Receiver" class="headerlink" title="在manifest中声明2个进程分别包含一个Service和一个Receiver"></a>在manifest中声明2个进程分别包含一个Service和一个Receiver</h4><p>此处将process1作为主要进程，process2作为守护进程。MainService中执行主要的业务逻辑，Receiver1、GuardService、Receiver2都是额外创建的，里面不要做任何事情，都是空实现就好。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--守护进程--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">service</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">".ble.MainService"</span></div><div class="line">    <span class="attr">android:enabled</span>=<span class="string">"true"</span></div><div class="line">    <span class="attr">android:exported</span>=<span class="string">"true"</span></div><div class="line">    <span class="attr">android:process</span>=<span class="string">":process1"</span> /&gt;</div><div class="line"><span class="tag">&lt;<span class="name">receiver</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">".guard.Receiver1"</span></div><div class="line">    <span class="attr">android:process</span>=<span class="string">":process1"</span> /&gt;</div><div class="line"><span class="tag">&lt;<span class="name">service</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">".guard.GuardService"</span></div><div class="line">    <span class="attr">android:process</span>=<span class="string">":process2"</span> /&gt;</div><div class="line"><span class="tag">&lt;<span class="name">receiver</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">".guard.Receiver2"</span></div><div class="line">    <span class="attr">android:process</span>=<span class="string">":process2"</span> /&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="处理Application"><a href="#处理Application" class="headerlink" title="处理Application"></a>处理Application</h4><p>由于我们的Application一般都会集成其他的Application，因此需要在attachBaseContext中初始化DaemonClient，然后调用onAttachBaseContext即可实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">XXXApplication</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> DaemonClient daemonClient;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.attachBaseContext(base);</div><div class="line">        daemonClient = <span class="keyword">new</span> DaemonClient(getDaemonConfigurations());</div><div class="line">        daemonClient.onAttachBaseContext(base);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> DaemonConfigurations <span class="title">getDaemonConfigurations</span><span class="params">()</span> </span>&#123;</div><div class="line">        DaemonConfigurations.DaemonConfiguration configuration1 = </div><div class="line">        <span class="keyword">new</span> DaemonConfigurations.DaemonConfiguration(</div><div class="line">                <span class="string">"com.hemaapp.znsh:process1"</span>,</div><div class="line">                MainService.class.getCanonicalName(),</div><div class="line">                Receiver1.class.getCanonicalName());</div><div class="line"></div><div class="line">        DaemonConfigurations.DaemonConfiguration configuration2 = </div><div class="line">        <span class="keyword">new</span> DaemonConfigurations.DaemonConfiguration(</div><div class="line">                <span class="string">"com.hemaapp.znsh:process2"</span>,</div><div class="line">                GuardService.class.getCanonicalName(),</div><div class="line">                Receiver2.class.getCanonicalName());</div><div class="line"></div><div class="line">        DaemonConfigurations.DaemonListener listener = <span class="keyword">new</span> MyDaemonListener();</div><div class="line">        <span class="comment">/*return new DaemonConfigurations(configuration1, configuration2);listener可以是null*/</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DaemonConfigurations(configuration1, configuration2, listener);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">MyDaemonListener</span> <span class="keyword">implements</span> <span class="title">DaemonConfigurations</span>.<span class="title">DaemonListener</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPersistentStart</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDaemonAssistantStart</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWatchDaemonDaed</span><span class="params">()</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="处理其他Class"><a href="#处理其他Class" class="headerlink" title="处理其他Class"></a>处理其他Class</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GuardService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Service.START_NOT_STICKY;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver1</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver2</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="在Android4-4中"><a href="#在Android4-4中" class="headerlink" title="在Android4.4中"></a>在Android4.4中</h4><ul>
-<li>手动Kill进程时，可以明显的在LogCat中看到Service被重新启动了，提高的Service的存活率。<h4 id="在Android5-中"><a href="#在Android5-中" class="headerlink" title="在Android5+中"></a>在Android5+中</h4></li>
-<li>手动Kill进程时，Service不会被重新启动，Application依旧被彻底杀死了。</li>
-<li>小米2+Android5.0，长时间后台运行测试中，可以连续半小时以上不间断发送网络请求，效果明显。</li>
-<li>其他主流手机，由于大多配置了2G以上的内存，因此暂时没有看到Service被清理的现象发生。</li>
-</ul>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>使用Marsdaemon提高Service存活率的方式虽然有一定效果，但是在Android5.0之后的版本中，并不可靠，并且还有如下几个缺陷。</p>
-<ul>
-<li>即使Service存活，Application中的信息不一定全部存在，这就会导致发送网络请求失败的情况发生，做了无用功。</li>
-<li>营造了一个恶劣的运行环境，这种方式也是Android所不提倡的。</li>
-</ul>
-<p>因此，Marsdaemon不应是大家频繁使用的功能，特殊情况下可以应急即可。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-使用Github+Hexo+Material搭建私人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/" class="article-date">
-      <time datetime="2016-12-15T14:02:27.250Z" itemprop="datePublished">2016-12-15</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用Github+Hexo搭建属于自己的博客，不需要自己搭建服务器，可以任意编辑内容和主题，简直爽歪歪了。</p>
-<h2 id="关于Github"><a href="#关于Github" class="headerlink" title="关于Github"></a>关于Github</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>GitHub是基于git实现的代码托管。git可能是目前最好用的版本控制系统了，非常受欢迎。</li>
-<li>GitHub可以免费使用，并且快速稳定。</li>
-<li>Github上面的世界很精彩，用久了你的眼界会开阔很多。<h3 id="为什么要使用Github-Pages"><a href="#为什么要使用Github-Pages" class="headerlink" title="为什么要使用Github Pages"></a>为什么要使用Github Pages</h3></li>
-<li>可以绑定你的域名(但暂时貌似只能绑定一个)。</li>
-<li>简单快捷，使用Github Pages可以为你提供一个免费的服务器，免去了自己搭建服务器和写数据库的麻烦。</li>
-</ul>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>在 Windows 环境下安装 <a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a>非常简单，仅须到官网下载安装文件并执行即可完成安装。<br><img src="http://oi9a3yd8k.bkt.clouddn.com/node_js.png" alt="安装Node.js"></p>
-<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><ul>
-<li>下载msysgit 安装即可</li>
-<li>安装教程：<a href="http://jingyan.baidu.com/article/90895e0fb3495f64ed6b0b50.html" target="_blank" rel="external">如何在windows下安装GIT</a></li>
-<li>Git入门教程：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">看廖雪峰大神就好</a></li>
-</ul>
-<h2 id="HEXO"><a href="#HEXO" class="headerlink" title="HEXO"></a>HEXO</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>再项目目录的文件夹下右键鼠标，点击Git Bash Here，输入npm命令即可安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
-<h3 id="Hexo初始化配置"><a href="#Hexo初始化配置" class="headerlink" title="Hexo初始化配置"></a>Hexo初始化配置</h3><p>安装完成后，根据自己建好的目录，执行以下操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div><div class="line">$ npm install</div></pre></td></tr></table></figure></p>
-<p>安装 Hexo 完成后，文件目录显示如下<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_init.png" alt="Hexo安装完成"></p>
-<h3 id="安装Hexo插件"><a href="#安装Hexo插件" class="headerlink" title="安装Hexo插件"></a>安装Hexo插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-index --save</div><div class="line">npm install hexo-generator-archive --save</div><div class="line">npm install hexo-generator-category --save</div><div class="line">npm install hexo-generator-tag --save</div><div class="line">npm install hexo-server --save</div><div class="line">npm install hexo-deployer-git --save</div><div class="line">npm install hexo-deployer-heroku --save</div><div class="line">npm install hexo-deployer-rsync --save</div><div class="line">npm install hexo-deployer-openshift --save</div><div class="line">npm install hexo-renderer-marked@0.2 --save</div><div class="line">npm install hexo-renderer-stylus@0.2 --save</div><div class="line">npm install hexo-generator-feed@1 --save</div><div class="line">npm install hexo-generator-sitemap@1 --save</div></pre></td></tr></table></figure>
-<h3 id="本地查看效果"><a href="#本地查看效果" class="headerlink" title="本地查看效果"></a>本地查看效果</h3><p>执行下面语句，执行完即可登录localhost:4000查看效果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate</div><div class="line">hexo server</div></pre></td></tr></table></figure>
-<p><img src="http://oi9a3yd8k.bkt.clouddn.com/generate.png" alt="执行效果"></p>
-<p>localhost:4000 效果展示<br><img src="http://oi9a3yd8k.bkt.clouddn.com/hexo_first_page.png" alt="执行效果"><br>至此，Hexo咋本地的环境搭建就完成了。</p>
-<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><h3 id="注册Github账户"><a href="#注册Github账户" class="headerlink" title="注册Github账户"></a>注册Github账户</h3><p>略过</p>
-<h3 id="New-repository"><a href="#New-repository" class="headerlink" title="New repository"></a>New repository</h3><p>注册完成之后登录点击new repository<br><a href="http://oi9a3yd8k.bkt.clouddn.com/github_new_reponsitory.png" target="_blank" rel="external">新建</a></p>
-<h3 id="配置SSH密钥"><a href="#配置SSH密钥" class="headerlink" title="配置SSH密钥"></a>配置SSH密钥</h3><p>配置Github的SSH密钥可以让本地git项目与远程的github建立链接，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
-<h4 id="查看是否存在SSH密钥"><a href="#查看是否存在SSH密钥" class="headerlink" title="查看是否存在SSH密钥"></a>查看是否存在SSH密钥</h4><p>打开Git Bush，并执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/. ssh</div></pre></td></tr></table></figure>
-<p>这是检查User目录下是否存在.ssh目录<br><strong>如果不存在目录则执行如下操作</strong></p>
-<h4 id="创建SSH密钥并在Github账户中添加"><a href="#创建SSH密钥并在Github账户中添加" class="headerlink" title="创建SSH密钥并在Github账户中添加"></a>创建SSH密钥并在Github账户中添加</h4><h5 id="创建SSH密钥"><a href="#创建SSH密钥" class="headerlink" title="创建SSH密钥"></a>创建SSH密钥</h5><p>打开Git Bush，并执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ssh -keygen -t rsa -C <span class="string">"your_email@example.com"</span></div><div class="line"><span class="comment">#这将按照你提供的邮箱地址，创建一对密钥</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure>
-<p>直接回车，则将密钥按默认文件进行存储。此时也可以输入特定的文件名，比如/c/Users/you/.ssh/github_rsa</p>
-<p>接着，根据提示，你需要输入密码和确认密码（说到这里，如果你很放心，其实可以不用密码，就是到输密码的地方，都直接回车，所以每次push就只管回车就行了。所谓的最安全的密码，就是没有密码 哈哈）。相关提示如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [Type a passphrase]</div><div class="line">Enter same passphrase again: [Type passphrase again]</div></pre></td></tr></table></figure>
-<p>输入完成之后，屏幕会显示如下信息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/you/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
-<h5 id="在Github账户中密钥"><a href="#在Github账户中密钥" class="headerlink" title="在Github账户中密钥"></a>在Github账户中密钥</h5><ul>
-<li>配置密钥</li>
-</ul>
-<p><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png" alt="ssh"><br><img src="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png" alt="ssh"></p>
-<ul>
-<li>测试</li>
-</ul>
-<p>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
-<p>如果是下面的反馈：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
-<p>输入yes即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
-<h5 id="设置用户信息"><a href="#设置用户信息" class="headerlink" title="设置用户信息"></a>设置用户信息</h5><p>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。<br>Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的，名字必须是你的真名，而不是GitHub的昵称。    </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"cnfeat"</span>//用户名</div><div class="line">git config --global user.email  <span class="string">"cnfeat@gmail.com"</span>//填写自己的邮箱</div></pre></td></tr></table></figure>
-<h3 id="将本地的Hexo文件部署到Github"><a href="#将本地的Hexo文件部署到Github" class="headerlink" title="将本地的Hexo文件部署到Github"></a>将本地的Hexo文件部署到Github</h3><ul>
-<li>登录Github，打开username.github.io的项目</li>
-<li>复制https类型的地址</li>
-<li>用记事本打开_config.yml文件</li>
-<li>在配置文件中保存如下内容</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: https://github.com/Username/username.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
-<ul>
-<li>在Hexo文件夹下执行</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure>
-<p>执行完之后会让你输入github的账号和密码，输入完后就可以登录我们自己的部署在Github Pages服务器上的博客了。</p>
-<h2 id="使用皮肤"><a href="#使用皮肤" class="headerlink" title="使用皮肤"></a>使用皮肤</h2><p>为Hexo开发的主题有很多，你可以在<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>中找到。下面以我使用的Material主题为例。</p>
-<h3 id="Clone主题"><a href="#Clone主题" class="headerlink" title="Clone主题"></a>Clone主题</h3><p>打开Hexo文件夹并执行Git Bash，执行命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/viosey/hexo-theme-material(此处地址替换成你需要使用的主题的地址) themes/hexo-theme-material</div></pre></td></tr></table></figure>
-<h3 id="修改Hexo配置文件"><a href="#修改Hexo配置文件" class="headerlink" title="修改Hexo配置文件"></a>修改Hexo配置文件</h3><p>下载完成后，打开Hexo文件夹下的配置文件 <strong>_config.yml</strong><br>修改参数为:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: hexo-theme-material</div></pre></td></tr></table></figure>
-<h3 id="重新部署到本地"><a href="#重新部署到本地" class="headerlink" title="重新部署到本地"></a>重新部署到本地</h3><h3 id="如果效果满意，将它部署到Github上"><a href="#如果效果满意，将它部署到Github上" class="headerlink" title="如果效果满意，将它部署到Github上"></a>如果效果满意，将它部署到Github上</h3><p>打开Hexo文件夹，右键Git Bash</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo clean (必须要，不然有时因为缓存问题，服务器更新不了主题)</div><div class="line">hexo g <span class="_">-d</span></div></pre></td></tr></table></figure>
-<h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><p>Hexo的博文都是以*.md即markdown文件的形式统一管理在source_posts文件夹下面的<br>新增一篇博文只需要在此文件夹下新建一个md文件即可。</p>
-<h3 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h3><p>Markdown 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。</p>
-<p><strong>Markdown有什么优点？</strong></p>
-<ul>
-<li>专注你的文字内容而不是排版样式。</li>
-<li>轻松的导出 HTML、PDF 和本身的 .md 文件。</li>
-<li>纯文本内容，兼容所有的文本编辑器与字处理软件。</li>
-<li>可读，直观。适合所有人的写作语言。</li>
-</ul>
-<p><strong>Markdown语法</strong></p>
-<ul>
-<li><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">http://www.williamlong.info/archives/4319.html</a></li>
-</ul>
-<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul>
-<li><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="external">http://www.williamlong.info/archives/4319.html</a></li>
-</ul>
-<p>END</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -523,16 +299,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+              <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+          
       
     </div>
     
@@ -541,6 +309,130 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2016/12/15/hello-world/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-MarsDaemon" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/15/MarsDaemon/" class="article-date">
+      <time datetime="2016-12-15T04:00:00.000Z" itemprop="datePublished">2016-12-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/15/MarsDaemon/">Android 使用MarsDaemon进程常驻</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/12/15/MarsDaemon/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-使用Github+Hexo+Material搭建私人博客" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/" class="article-date">
+      <time datetime="2016-12-15T04:00:00.000Z" itemprop="datePublished">2016-12-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

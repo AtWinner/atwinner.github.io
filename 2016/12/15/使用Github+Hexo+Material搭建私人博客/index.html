@@ -15,14 +15,12 @@
 
 
 
-<meta name="description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。
-前言身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用G">
+<meta name="description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Github+Hexo+Material搭建私人博客">
 <meta property="og:url" content="http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/index.html">
 <meta property="og:site_name" content="胡杨林">
-<meta property="og:description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。
-前言身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用G">
+<meta property="og:description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/node_js.png">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/hexo_init.png">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/generate.png">
@@ -30,11 +28,10 @@
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/ssh1.png">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/ssh3.png">
 <meta property="og:image" content="http://oi9a3yd8k.bkt.clouddn.com/ssh2.png">
-<meta property="og:updated_time" content="2016-12-16T13:49:59.909Z">
+<meta property="og:updated_time" content="2016-12-19T05:53:58.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Github+Hexo+Material搭建私人博客">
-<meta name="twitter:description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。
-前言身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用G">
+<meta name="twitter:description" content="在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。">
 <meta name="twitter:image" content="http://oi9a3yd8k.bkt.clouddn.com/node_js.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -88,7 +85,9 @@
 </script>
 
 
-    <script> yiliaConfig.jquery_ui = [false]; </script>
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
 
 
 
@@ -277,7 +276,7 @@
   
     <div class="article-meta">
       <a href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/" class="article-date">
-      <time datetime="2016-12-15T14:02:27.250Z" itemprop="datePublished">2016-12-15</time>
+      <time datetime="2016-12-15T04:00:00.000Z" itemprop="datePublished">2016-12-15</time>
 </a>
 
 
@@ -310,6 +309,7 @@
       
           
         <p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
+<a id="more"></a>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>身为一名程序猿，记录自己的成长是至关重要的，而写博客是一种比较好的记录方式。你可以选择博客园、开源中国、简书等等，当然自己搭建一个博客站点也是可以的。本篇文章将会手把手的教你使用Github+Hexo搭建属于自己的博客，不需要自己搭建服务器，可以任意编辑内容和主题，简直爽歪歪了。</p>
 <h2 id="关于Github"><a href="#关于Github" class="headerlink" title="关于Github"></a>关于Github</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>GitHub是基于git实现的代码托管。git可能是目前最好用的版本控制系统了，非常受欢迎。</li>
@@ -410,8 +410,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">胡胡</a></p>
-        <p><span>发布时间:</span>2016-12-15, 22:02:27</p>
-        <p><span>最后更新:</span>2016-12-16, 21:49:59</p>
+        <p><span>发布时间:</span>2016-12-15, 12:00:00</p>
+        <p><span>最后更新:</span>2016-12-19, 13:53:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/" title="使用Github+Hexo+Material搭建私人博客">http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/　　作者: 胡胡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -427,17 +427,11 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/16/MarsDaemon/">
+                <a href="/2016/12/15/MarsDaemon/">
                     Android 使用MarsDaemon进程常驻
                 </a>
             </div>
         
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/15/hello-world/">
-                    Hello World
-                </a>
-            </div>
         
     </nav>
 
@@ -503,7 +497,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/16/MarsDaemon/" title="上一篇: Android 使用MarsDaemon进程常驻">
+            <a href="/2016/12/15/MarsDaemon/" title="上一篇: Android 使用MarsDaemon进程常驻">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -511,13 +505,11 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/15/hello-world/" title="下一篇: Hello World">
-                <i class="fa fa-angle-right"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/MarsDaemon/">Android 使用MarsDaemon进程常驻</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/使用Github+Hexo+Material搭建私人博客/">使用Github+Hexo+Material搭建私人博客</a></li></ul>
 
 
 
