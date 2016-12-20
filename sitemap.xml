@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/Wechat/index.html</loc>
+    
+    <lastmod>2016-12-20T08:42:27.994Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2016-12-19T06:28:35.454Z</lastmod>
