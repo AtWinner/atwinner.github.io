@@ -48,7 +48,7 @@
     <link href="http://yoursite.com/2016/12/15/MarsDaemon/"/>
     <id>http://yoursite.com/2016/12/15/MarsDaemon/</id>
     <published>2016-12-15T04:00:00.000Z</published>
-    <updated>2016-12-19T05:54:11.910Z</updated>
+    <updated>2016-12-20T09:10:34.543Z</updated>
     
     <content type="html"><![CDATA[<p>在特定的业务场景中，我们可能会需要app在后台做一些事情，比如上传数据之类的操作，并且希望这种操作及时在程序退出之后依然可以继续进行。因此也就理所当然的想到了使用Service进行处理。<strong>但是</strong>，在特定条件（app进入后台+设备内存不足+进程占用的内存足够大）的情况下，Service会非常容易在几分钟内被系统干掉，因此提高Service的存活率至关重要。</p>
 <a id="more"></a>
@@ -84,15 +84,19 @@
     
     </summary>
     
+      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+    
+    
+      <category term="MarsDaemon" scheme="http://yoursite.com/tags/MarsDaemon/"/>
     
   </entry>
   
   <entry>
-    <title>使用Github+Hexo+Material搭建私人博客</title>
+    <title>使用Github+Hexo搭建私人博客</title>
     <link href="http://yoursite.com/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
     <published>2016-12-15T04:00:00.000Z</published>
-    <updated>2016-12-19T05:53:58.872Z</updated>
+    <updated>2016-12-20T09:10:06.469Z</updated>
     
     <content type="html"><![CDATA[<p>在一次偶然的机会中，发现了有人演示的个人博客很漂亮，域名就是xxxx.github.io，遂生出了研究一下使用Github建立个人博客的念头，本质上的原理还是用Github托管了静态网页的源代码，并将其显示在前端。</p>
 <a id="more"></a>
@@ -194,6 +198,12 @@
     
     </summary>
     
+      <category term="小工具" scheme="http://yoursite.com/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+    
+      <category term="Github Pages" scheme="http://yoursite.com/tags/Github-Pages/"/>
     
   </entry>
   
