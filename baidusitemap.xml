@@ -2,16 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     
-    
   <url>
     <loc>http://yoursite.com/2016/12/20/SetTag/</loc>
-    <lastmod>2016-12-20T10:02:09.859Z</lastmod>
+    <lastmod>2016-12-23T10:04:50.296Z</lastmod>
     <data>
         <display>
         <title>SetTag</title>
         <pubTime>2016-12-20T09:59:14.000Z</pubTime>
         
-        <tag>标签 </tag>
+        <tag>Hexo </tag>
          
          
            
@@ -22,6 +21,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>http://yoursite.com/2016/12/15/MarsDaemon/</loc>
