@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2016-12-26T05:48:28.919Z</updated>
+  <updated>2016-12-26T06:34:42.702Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://atwinner.github.io/2016/12/20/SetTag/"/>
     <id>https://atwinner.github.io/2016/12/20/SetTag/</id>
     <published>2016-12-20T09:59:14.000Z</published>
-    <updated>2016-12-26T05:48:28.919Z</updated>
+    <updated>2016-12-26T06:34:42.702Z</updated>
     
     <content type="html"><![CDATA[<p>搭建完个人博客之后，就难免需要对文章进行分类，使用categories和tags进行分类是个不错的选择，而且可以很方便的通过选择标签来筛选不同的文章。<strong>但是</strong>，搜索的文章中看了好几遍都难以理解，捯饬成功之后，分享一下操作流程。</p>
 <a id="more"></a>
@@ -40,12 +40,7 @@
 </ul>
 <p>效果还是不错的</p>
 <p><img src="/img/image_tag.png" alt="标签、分类效果"><br><img src="/img/tag_cloud.png" alt="我的标签云效果"></p>
-<!-- 多说评论框 start -->
-<p><div class="ds-thread" data-thread-key="SetTag" data-title="SetTag" data-url="https://atwinner.github.io/2016/12/20/SetTag/"></div><br><!-- 多说评论框 end --></p>
-<!-- 多说最新评论 start -->
-<p><div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div><br><!-- 多说最新评论 end --><br><!-- 多说公共JS代码 start (一个网页只需插入一次) --></p>
-<p><script type="text/javascript"><br>var duoshuoQuery = {short_name:”atwinner”};<br>    (function() {<br>        var ds = document.createElement(‘script’);<br>        ds.type = ‘text/javascript’;ds.async = true;<br>        ds.src = (document.location.protocol == ‘https:’ ? ‘https:’ : ‘http:’) + ‘//static.duoshuo.com/embed.js’;<br>        ds.charset = ‘UTF-8’;<br>        (document.getElementsByTagName(‘head’)[0]<br>         || document.getElementsByTagName(‘body’)[0]).appendChild(ds);<br>    })();<br></script><br><!-- 多说公共JS代码 end --></p>
-]]></content>
+<div class="duoshuo" id="comments"><br><!-- 多说评论框 start --><br><div class="ds-thread" data-thread-key="SetTag" data-title="SetTag" data-url="https://atwinner.github.io/2016/12/20/SetTag/"></div><br><!-- 多说评论框 end --><br><br><!-- 多说最新评论 start --><br><div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div><br><!-- 多说最新评论 end --><br><!-- 多说公共JS代码 start (一个网页只需插入一次) --><br><script type="text/javascript"><br>var duoshuoQuery = {short_name:”atwinner”};<br>    (function() {<br>        var ds = document.createElement(‘script’);<br>        ds.type = ‘text/javascript’;ds.async = true;<br>        ds.src = (document.location.protocol == ‘https:’ ? ‘https:’ : ‘http:’) + ‘//static.duoshuo.com/embed.js’;<br>        ds.charset = ‘UTF-8’;<br>        (document.getElementsByTagName(‘head’)[0]<br>         || document.getElementsByTagName(‘body’)[0]).appendChild(ds);<br>    })();<br></script><br><!-- 多说公共JS代码 end --><br></div>]]></content>
     
     <summary type="html">
     
