@@ -4,9 +4,9 @@
   <subtitle>献给胡胡和杨杨</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://atwinner.github.io/"/>
   <updated>2016-12-26T05:48:28.919Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://atwinner.github.io/</id>
   
   <author>
     <name>胡胡</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Hexo设置标签</title>
-    <link href="http://yoursite.com/2016/12/20/SetTag/"/>
-    <id>http://yoursite.com/2016/12/20/SetTag/</id>
+    <link href="https://atwinner.github.io/2016/12/20/SetTag/"/>
+    <id>https://atwinner.github.io/2016/12/20/SetTag/</id>
     <published>2016-12-20T09:59:14.000Z</published>
     <updated>2016-12-26T05:48:28.919Z</updated>
     
@@ -53,17 +53,17 @@
     
     </summary>
     
-      <category term="小工具" scheme="http://yoursite.com/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
+      <category term="小工具" scheme="https://atwinner.github.io/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://atwinner.github.io/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2016/12/15/hello-world/"/>
-    <id>http://yoursite.com/2016/12/15/hello-world/</id>
+    <link href="https://atwinner.github.io/2016/12/15/hello-world/"/>
+    <id>https://atwinner.github.io/2016/12/15/hello-world/</id>
     <published>2016-12-15T09:51:52.283Z</published>
     <updated>2016-12-19T05:54:19.738Z</updated>
     
@@ -90,8 +90,8 @@
   
   <entry>
     <title>Android 使用MarsDaemon进程常驻</title>
-    <link href="http://yoursite.com/2016/12/15/MarsDaemon/"/>
-    <id>http://yoursite.com/2016/12/15/MarsDaemon/</id>
+    <link href="https://atwinner.github.io/2016/12/15/MarsDaemon/"/>
+    <id>https://atwinner.github.io/2016/12/15/MarsDaemon/</id>
     <published>2016-12-15T04:00:00.000Z</published>
     <updated>2016-12-20T09:10:34.543Z</updated>
     
@@ -129,17 +129,17 @@
     
     </summary>
     
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+      <category term="Android" scheme="https://atwinner.github.io/categories/Android/"/>
     
     
-      <category term="MarsDaemon" scheme="http://yoursite.com/tags/MarsDaemon/"/>
+      <category term="MarsDaemon" scheme="https://atwinner.github.io/tags/MarsDaemon/"/>
     
   </entry>
   
   <entry>
     <title>使用Github+Hexo搭建私人博客</title>
-    <link href="http://yoursite.com/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
+    <link href="https://atwinner.github.io/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://atwinner.github.io/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
     <published>2016-12-15T04:00:00.000Z</published>
     <updated>2016-12-20T09:10:06.469Z</updated>
     
@@ -243,12 +243,12 @@
     
     </summary>
     
-      <category term="小工具" scheme="http://yoursite.com/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
+      <category term="小工具" scheme="https://atwinner.github.io/categories/%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://atwinner.github.io/tags/Hexo/"/>
     
-      <category term="Github Pages" scheme="http://yoursite.com/tags/Github-Pages/"/>
+      <category term="Github Pages" scheme="https://atwinner.github.io/tags/Github-Pages/"/>
     
   </entry>
   
