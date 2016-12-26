@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-26T03:58:28.850Z</updated>
+  <updated>2016-12-26T05:38:16.769Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SetTag</title>
+    <title>Hexo设置标签</title>
     <link href="http://yoursite.com/2016/12/20/SetTag/"/>
     <id>http://yoursite.com/2016/12/20/SetTag/</id>
     <published>2016-12-20T09:59:14.000Z</published>
-    <updated>2016-12-26T03:58:28.850Z</updated>
+    <updated>2016-12-26T05:38:16.769Z</updated>
     
     <content type="html"><![CDATA[<p>搭建完个人博客之后，就难免需要对文章进行分类，使用categories和tags进行分类是个不错的选择，而且可以很方便的通过选择标签来筛选不同的文章。<strong>但是</strong>，搜索的文章中看了好几遍都难以理解，捯饬成功之后，分享一下操作流程。</p>
 <a id="more"></a>
