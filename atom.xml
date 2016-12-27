@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>胡杨林</title>
-  <subtitle>献给胡胡和杨杨\n专注于Android开发</subtitle>
+  <subtitle>献给胡胡和杨杨，专注于Android开发</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2016-12-26T06:42:26.731Z</updated>
+  <updated>2016-12-27T03:14:54.113Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android滑动到顶部悬停</title>
+    <link href="https://atwinner.github.io/2016/12/27/top-hover/"/>
+    <id>https://atwinner.github.io/2016/12/27/top-hover/</id>
+    <published>2016-12-27T02:42:56.000Z</published>
+    <updated>2016-12-27T03:14:54.113Z</updated>
+    
+    <content type="html"><![CDATA[<p>开发的过程中，会遇到一些不好解决的问题，列表太多会导致滑动事件的冲突，下图中的情况中就是一个很典型的案例。</p>
+<a id="more"></a>
+<p><img src="/img/Android_CoordinatorLayout.png" alt="UI"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;开发的过程中，会遇到一些不好解决的问题，列表太多会导致滑动事件的冲突，下图中的情况中就是一个很典型的案例。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="https://atwinner.github.io/categories/Android/"/>
+    
+    
+      <category term="CoordinatorLayout" scheme="https://atwinner.github.io/tags/CoordinatorLayout/"/>
+    
+      <category term="MaterialDesign" scheme="https://atwinner.github.io/tags/MaterialDesign/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo设置标签</title>
@@ -133,8 +160,8 @@
   
   <entry>
     <title>使用Github+Hexo搭建私人博客</title>
-    <link href="https://atwinner.github.io/2016/12/15/%E4%BD%BF%E7%94%A8Github+Hexo+Material%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://atwinner.github.io/2016/12/15/使用Github+Hexo+Material搭建私人博客/</id>
+    <link href="https://atwinner.github.io/2016/12/15/GithubPagesHexo/"/>
+    <id>https://atwinner.github.io/2016/12/15/GithubPagesHexo/</id>
     <published>2016-12-15T04:00:00.000Z</published>
     <updated>2016-12-20T09:10:06.469Z</updated>
     
