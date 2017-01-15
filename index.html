@@ -312,7 +312,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
+        <a id="more"></a>
+<p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
 <p>答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.</p>
 <p>Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某一个创建它的线程，可以通过Looper.myQueue()得到当前线程的消息队列</p>
 <p>Handler：可以发布或者处理一个消息或者操作一个Runnable，通过Handler发布消息，消息将只会发送到与它关联的消息队列，然也只能处理该消息队列中的消息</p>

@@ -17,20 +17,20 @@
 
 <meta name="description" content="1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系
 答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.
-Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某">
+Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android面试题梳理">
 <meta property="og:url" content="https://atwinner.github.io/2017/01/15/interview/index.html">
 <meta property="og:site_name" content="胡杨林">
 <meta property="og:description" content="1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系
 答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.
-Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某">
-<meta property="og:updated_time" content="2017-01-15T11:17:39.499Z">
+Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于">
+<meta property="og:updated_time" content="2017-01-15T12:16:12.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android面试题梳理">
 <meta name="twitter:description" content="1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系
 答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.
-Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某">
+Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -318,7 +318,8 @@ Message Queue(消息队列)：用来存放通过Handler发布的消息，通常�
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
+        <a id="more"></a>
+<p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
 <p>答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.</p>
 <p>Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某一个创建它的线程，可以通过Looper.myQueue()得到当前线程的消息队列</p>
 <p>Handler：可以发布或者处理一个消息或者操作一个Runnable，通过Handler发布消息，消息将只会发送到与它关联的消息队列，然也只能处理该消息队列中的消息</p>
@@ -392,7 +393,7 @@ Message Queue(消息队列)：用来存放通过Handler发布的消息，通常�
         <p><span>本文标题:</span><a href="/2017/01/15/interview/">Android面试题梳理</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">胡胡</a></p>
         <p><span>发布时间:</span>2017-01-15, 08:07:37</p>
-        <p><span>最后更新:</span>2017-01-15, 19:17:39</p>
+        <p><span>最后更新:</span>2017-01-15, 20:16:12</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/01/15/interview/" title="Android面试题梳理">https://atwinner.github.io/2017/01/15/interview/</a>
             <span class="copy-path" data-clipboard-text="原文: https://atwinner.github.io/2017/01/15/interview/　　作者: 胡胡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
