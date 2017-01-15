@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-01-15T12:16:12.209Z</updated>
+  <updated>2017-01-15T12:19:40.341Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="https://atwinner.github.io/2017/01/15/interview/"/>
     <id>https://atwinner.github.io/2017/01/15/interview/</id>
     <published>2017-01-15T00:07:37.000Z</published>
-    <updated>2017-01-15T12:16:12.209Z</updated>
+    <updated>2017-01-15T12:19:40.341Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a>
-<p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
+    <content type="html"><![CDATA[<p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
+<a id="more"></a>
 <p>答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.</p>
 <p>Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某一个创建它的线程，可以通过Looper.myQueue()得到当前线程的消息队列</p>
 <p>Handler：可以发布或者处理一个消息或者操作一个Runnable，通过Handler发布消息，消息将只会发送到与它关联的消息队列，然也只能处理该消息队列中的消息</p>
@@ -90,9 +90,7 @@
     
     <summary type="html">
     
-      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;&lt;strong&gt;1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;答：简单的说，Handler获取当前线程中的looper对象，looper用来
+      &lt;p&gt;&lt;strong&gt;1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     

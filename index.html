@@ -144,13 +144,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -270,7 +270,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap">
   
@@ -282,7 +282,7 @@
 </a>
 
  
-    <a href="/2017/01/15/interview/#comments" title="查看评论">
+    <a href="/2017/01/15/interview/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -312,71 +312,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
-<p>答：简单的说，Handler获取当前线程中的looper对象，looper用来从存放Message的MessageQueue中取出Message，再有Handler进行Message的分发和处理.</p>
-<p>Message Queue(消息队列)：用来存放通过Handler发布的消息，通常附属于某一个创建它的线程，可以通过Looper.myQueue()得到当前线程的消息队列</p>
-<p>Handler：可以发布或者处理一个消息或者操作一个Runnable，通过Handler发布消息，消息将只会发送到与它关联的消息队列，然也只能处理该消息队列中的消息</p>
-<p>Looper：是Handler和消息队列之间通讯桥梁，程序组件首先通过Handler把消息传递给Looper，Looper把消息放入队列。Looper也把消息队列里的消息广播给所有的</p>
-<p>Handler：Handler接受到消息后调用handleMessage进行处理</p>
-<p>Message：消息的类型，在Handler类中的handleMessage方法中得到单个的消息进行处理</p>
-<p>在单线程模型下，为了线程通信问题，Android设计了一个Message Queue(消息队列)， 线程间可以通过该Message Queue并结合Handler和Looper组件进行信息交换。下面将对它们进行分别介绍：</p>
-<ol>
-<li><p>Message</p>
-<p> Message消息，理解为线程间交流的信息，处理数据后台线程需要更新UI，则发送Message内含一些数据给UI线程。</p>
-</li>
-<li><p>Handler</p>
-<p> Handler处理者，是Message的主要处理者，负责Message的发送，Message内容的执行处理。后台线程就是通过传进来的 Handler对象引用来sendMessage(Message)。而使用Handler，需要implement 该类的 handleMessage(Message)方法，它是处理这些Message的操作内容，例如Update UI。通常需要子类化Handler来实现handleMessage方法。</p>
-</li>
-<li><p>Message Queue</p>
-<p> Message Queue消息队列，用来存放通过Handler发布的消息，按照先进先出执行。每个message queue都会有一个对应的Handler。Handler会向message queue通过两种方法发送消息：sendMessage或post。这两种消息都会插在message queue队尾并按先进先出执行。但通过这两种方法发送的消息执行的方式略有不同：通过sendMessage发送的是一个message对象,会被 Handler的handleMessage()函数处理；而通过post方法发送的是一个runnable对象，则会自己执行。</p>
-</li>
-<li><p>Looper</p>
-<p> Looper是每条线程里的Message Queue的管家。Android没有Global的Message Queue，而Android会自动替主线程(UI线程)建立Message Queue，但在子线程里并没有建立Message Queue。所以调用Looper.getMainLooper()得到的主线程的Looper不为NULL，但调用Looper.myLooper() 得到当前线程的Looper就有可能为NULL。对于子线程使用Looper，API Doc提供了正确的使用方法：这个Message机制的大概流程：</p>
-</li>
-<li>在Looper.loop()方法运行开始后，循环地按照接收顺序取出Message Queue里面的非NULL的Message。</li>
-<li>一开始Message Queue里面的Message都是NULL的。当Handler.sendMessage(Message)到Message Queue，该函数里面设置了那个Message对象的target属性是当前的Handler对象。随后Looper取出了那个Message，则调用 该Message的target指向的Hander的dispatchMessage函数对Message进行处理。在dispatchMessage方法里，如何处理Message则由用户指定，三个判断，优先级从高到低：<br> 1) Message里面的Callback，一个实现了Runnable接口的对象，其中run函数做处理工作；<br> 2) Handler里面的mCallback指向的一个实现了Callback接口的对象，由其handleMessage进行处理；<br> 3) 处理消息Handler对象对应的类继承并实现了其中handleMessage函数，通过这个实现的handleMessage函数处理消息。<br> 由此可见，我们实现的handleMessage方法是优先级最低的！</li>
-<li>Handler处理完该Message (update UI) 后，Looper则设置该Message为NULL，以便回收！<br> 在网上有很多文章讲述主线程和其他子线程如何交互，传送信息，最终谁来执行处理信息之类的，个人理解是最简单的方法——判断Handler对象里面的Looper对象是属于哪条线程的，则由该线程来执行！<ol>
-<li>当Handler对象的构造函数的参数为空，则为当前所在线程的Looper；</li>
-<li>Looper.getMainLooper()得到的是主线程的Looper对象，Looper.myLooper()得到的是当前线程的Looper对象。</li>
-</ol>
-</li>
-</ol>
-<p><strong>2. 如果有个100M大的文件，需要上传至服务器中，而服务器form表单最大只能上传2M，可以用什么方法。</strong></p>
-<p>这个问题不是很明确我觉得，首先来说使用http协议上传数据，特别在android下，跟form没什么关系。传统的在web中，在form中写文件上传，其实浏览器所做<br>的就是将我们的数据进行解析组拼成字符串，以流的方式发送到服务器，且上传文件用的都是POST方式，POST方式对大小没什么限制。<br>回到题目，可以说假设每次真的只能上传2M，那么可能我们只能把文件截断，然后分别上传了。</p>
-<p><strong>3、内存溢出和内存泄漏有什么区别？何时会产生内存泄漏？内存优化有哪些方法？</strong></p>
-<p>内存溢出通俗理解就是软件（应用）运行需要的内存，超出了它可用的最大内存。<br>内存泄漏就是我们对某一内存空间的使用，使用完成后没有释放。<br>内存优化：Android中容易内存溢出的部分，就是图片的加载，我们可以使用图片的压缩加上使用LruCache缓存的目的来控制图片所能够使用的内存。<br>还有对于比较耗资源的对象及时的关闭，例如Database Conn，各种传感器， Service 等等。</p>
-<p><strong>4、AsyncTask使用在哪些场景？它的缺陷是什么？如何解决？</strong></p>
-<p>AsyncTask 运用的场景就是我们需要进行一些耗时的操作，耗时操作完成后更新主线程，或者在操作过程中对主线程的UI进行更新。<br>缺陷：AsyncTask中维护着一个长度为128的线程池，同时可以执行5个工作线程，还有一个缓冲队列，当线程池中已有128个线程，缓冲队列已满时，如果<br>此时向线程提交任务，将会抛出RejectedExecutionException。<br>解决：由一个控制线程来处理AsyncTask的调用判断线程池是否满了，如果满了则线程睡眠否则请求AsyncTask继续处理。</p>
-<p><strong>5、Activity用SharedPreferences保存数据，大小有木有限制？</strong></p>
-<p><strong>6、Activity间通过Intent传递数据大小有没有限制？</strong></p>
-<p>Intent在传递数据时是有大小限制的，这里官方并未详细说明，不过通过实验的方法可以测出数据应该被限制在1MB之内（1024KB），笔者采用的是传递Bitmap的方法，发现当图片大小超过1024（准确地说是1020左右）的时候，程序就会出现闪退、停止运行等异常(不同的手机反应不同)，因此可以判断Intent的传输容量在1MB之内。</p>
-<p><strong>7、assest文件夹里放文件，对于文件的大小有没有限制？</strong></p>
-<p>assets目录更像一个附录类型的目录，Android不会为这个目录中的文件生成ID并保存在R类当中，因此它与Android中的一些类和方法兼容度更低。<br>同时，由于你需要一个字符串路径来获取这个目录下的文件描述符，访问的速度会更慢。但是把一些文件放在这个目录下会使一些操作更加方便，<br>比方说拷贝一个数据库文件到系统内存中。要注意的是，你无法在Android XML文件中引用到assets目录下的文件，只能通过AssetManager来访问<br>这些文件。数据库文件和游戏数据等放在这个目录下是比较合适的。另外，网上关于assets和raw的资料都千篇一律了，因此关于这两者中单个文件<br>大小不能超过1M的<strong>错误</strong>描述也在传播，即如果读取超过1M的文件会报”Data exceeds UNCOMPRESS_DATA_MAX (1314625 vs 1048576)”的<br>IOException，还引申出种种解决方案。个人认为不应该有这样的限制，为了验证这个说法写了个Demo，发现将近5M的压缩包在assets和raw中<br>都能正常访问，因此在这里纠正一下，理论上只要打包不超过Android APK 50M大小的限制都是没有问题的。当然了，不排除是Android很早期的<br>时候因为设备硬件原因aapt在编译的时候对这两个文件夹大小做出了限制，如果是这样，较新版的ADT应该不会出现这种情况。</p>
-<p><strong>8、 启动一个程序，可以主界面点击图标进入，也可以从一个程序中跳转过去，二者有什么区别？</strong></p>
-<p>是因为启动程序（主界面也是一个app），发现了在这个程序中存在一个设置为</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></div></pre></td></tr></table></figure>
-<p>的activity,<br>所以这个launcher会把icon提出来，放在主界面上。当用户点击icon的时候，发出一个Intent：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Intent intent = mActivity.getPackageManager().getLaunchIntentForPackage(packageName);</div><div class="line">mActivity.startActivity(intent);</div></pre></td></tr></table></figure>
-<p>跳过去可以跳到任意允许的页面，如一个程序可以下载，那么真正下载的页面可能不是首页（也有可能是首页），这时还是构造一个Intent，startActivity.<br>这个intent中的action可能有多种view,download都有可能。系统会根据第三方程序向系统注册的功能，为你的Intent选择可以打开的程序或者页面。所以唯一的一点<br>不同的是从icon的点击启动的intent的action是相对单一的，从程序中跳转或者启动可能样式更多一些。本质是相同的。</p>
-<p><strong>9、程序之间的亲和性的理解。</strong></p>
-<p>1、默认情况下一个应用的所有Activity都是具有相同的affinity，都是从application中继承，application的affinity默认就是manifest的包名。<br>2、affinity对Activity来说，就像是身份证一样，可以告诉所在的Task，自己属于其中的一员。<br>3、应用场合：<br>a:根据affinity重新为Activity选择合适的宿主Task;<br>b:与allowTaskReparenting属性配合;<br>c:启动Activity使用Intent设置了FLAG_ACTIVITY_NEW_TASK标记。</p>
-<p><strong>10、同一个程序，但不同的Activity是否可以放在不同的Task任务栈中？</strong></p>
-<p>可以放在不同的Task中。需要为不同的activity设置不同的affinity属性，启动activity的Intent需要包含FLAG_ACTIVITY_NEW_TASK标记。</p>
-<p><strong>11、横竖屏切换时候Activity的生命周期。</strong></p>
-<p>1、不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次<br>2、设置Activity的android:configChanges=”orientation”时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次<br>3、设置Activity的android:configChanges=”orientation|keyboardHidden”时，切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法</p>
-<p><strong>12、AIDL的全称是什么？如何工作？</strong></p>
-<p>全称是：Android Interface Define Language<br>在Android中, 每个应用程序都可以有自己的进程. 在写UI应用的时候, 经常要用到Service. 在不同的进程中, 怎样传递对象呢? 显然, Java中不允许跨进程内存共享.<br> 因此传递对象, 只能把对象拆分成操作系统能理解的简单形式, 以达到跨界对象访问的目的. 在J2EE中,采用RMI的方式, 可以通过序列化传递对象. 在Android中, 则<br>采用AIDL的方式. 理论上AIDL可以传递Bundle,实际上做起来却比较麻烦。<br>AIDL(AndRoid接口描述语言)是一种借口描述语言; 编译器可以通过aidl文件生成一段代码，通过预先定义的接口达到两个进程内部通信进程的目的. 如果需要<br>在一个Activity中, 访问另一个Service中的某个对象, 需要先将对象转化成AIDL可识别的参数(可能是多个参数), 然后使用AIDL来传递这些参数, 在消息的接收端, 使用<br>这些参数组装成自己需要的对象.AIDL的IPC的机制和COM或CORBA类似, 是基于接口的，但它是轻量级的。它使用代理类在客户端和实现层间传递值. 如果要使用AIDL,<br>需要完成2件事情: 1. 引入AIDL的相关类.; 2. 调用aidl产生的class.<br>AIDL的创建方法:<br>AIDL语法很简单,可以用来声明一个带一个或多个方法的接口，也可以传递参数和返回值。 由于远程调用的需要, 这些参数和返回值并不是任何类型.<br>下面是些AIDL支持的数据类型:</p>
-<ol>
-<li>不需要import声明的简单Java编程语言类型(int,boolean等)</li>
-<li>String, CharSequence不需要特殊声明</li>
-<li>List, Map和Parcelables类型, 这些类型内所包含的数据成员也只能是简单数据类型, String等其他比支持的类型.</li>
-</ol>
-<p><strong>13、dvm的进程和Linux的进程, 应用程序的进程是否为同一个概念</strong></p>
-<p>Dvm的进程是dalivk虚拟机进程,每个android程序都运行在自己的进程里面,每个android程序系统都会给他分配一个单独的liunx uid(user id),<br>每个dvm都是linux里面的一个进程.所以说这两个进程是一个进程.</p>
-<p><strong>14、 Android的四大组件是哪些，它们的作用？</strong></p>
-<p>Activity：Activity是Android程序与用户交互的窗口，是Android构造块中最基本的一种，它需要为保持各界面的状态，做很多持久化的事情，妥善管理生命周期以及一些跳转逻辑<br>Service：后台服务于Activity，封装有一个完整的功能逻辑实现，接受上层指令，完成相关的事物，定义好需要接受的Intent提供同步和异步的接口<br>Content Provider：是Android提供的第三方应用数据的访问方案，可以派生Content Provider类，对外提供数据，可以像数据库一样进行选择排序，屏蔽内部数据的存储细节，向外提供统一的借口模型，大大简化上层应用，对数据的整合提供了更方便的途径<br>BroadCast Receiver：接受一种或者多种Intent作触发事件，接受相关消息，做一些简单处理，转换成一条Notification，统一了Android的事件广播模型</p>
-
+              <p><strong>1. 请解释下在单线程模型中Message,Handler,Message Queue,Looper之间的关系</strong></p>
+          
       
     </div>
     
@@ -393,6 +330,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2017/01/15/interview/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -418,7 +359,7 @@
 </a>
 
  
-    <a href="/2016/12/28/android-runtime-permission/#comments" title="查看评论">
+    <a href="/2016/12/28/android-runtime-permission/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -468,7 +409,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/28/android-runtime-permission/#more">阅读全文 >></a>
+          <a href="/2016/12/28/android-runtime-permission/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -495,7 +436,7 @@
 </a>
 
  
-    <a href="/2016/12/28/UnionPay/#comments" title="查看评论">
+    <a href="/2016/12/28/UnionPay/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -559,7 +500,7 @@
 </a>
 
  
-    <a href="/2016/12/27/top-hover/#comments" title="查看评论">
+    <a href="/2016/12/27/top-hover/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -609,7 +550,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/27/top-hover/#more">阅读全文 >></a>
+          <a href="/2016/12/27/top-hover/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -636,7 +577,7 @@
 </a>
 
  
-    <a href="/2016/12/20/SetTag/#comments" title="查看评论">
+    <a href="/2016/12/20/SetTag/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -686,7 +627,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/20/SetTag/#more">阅读全文 >></a>
+          <a href="/2016/12/20/SetTag/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -713,7 +654,7 @@
 </a>
 
  
-    <a href="/2016/12/15/hello-world/#comments" title="查看评论">
+    <a href="/2016/12/15/hello-world/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -755,7 +696,7 @@
       
       
         <p class="article-more-link">
-          <a href="/2016/12/15/hello-world/#more">阅读全文 >></a>
+          <a href="/2016/12/15/hello-world/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -782,7 +723,7 @@
 </a>
 
  
-    <a href="/2016/12/15/GithubPagesHexo/#comments" title="查看评论">
+    <a href="/2016/12/15/GithubPagesHexo/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -832,7 +773,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/15/GithubPagesHexo/#more">阅读全文 >></a>
+          <a href="/2016/12/15/GithubPagesHexo/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -859,7 +800,7 @@
 </a>
 
  
-    <a href="/2016/12/15/MarsDaemon/#comments" title="查看评论">
+    <a href="/2016/12/15/MarsDaemon/#comments" title="Comments">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="count-comment"></span>
         
@@ -909,7 +850,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/15/MarsDaemon/#more">阅读全文 >></a>
+          <a href="/2016/12/15/MarsDaemon/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -938,14 +879,14 @@
                 2016-2017 Poplar Hu
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -954,7 +895,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -1014,9 +955,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
