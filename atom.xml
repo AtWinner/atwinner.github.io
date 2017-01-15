@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>胡杨林</title>
+  <title>Poplar</title>
   <subtitle>献给胡胡和杨杨，专注于Android开发</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>https://atwinner.github.io/</id>
   
   <author>
-    <name>胡胡</name>
+    <name>Poplar Hu</name>
     
   </author>
   
