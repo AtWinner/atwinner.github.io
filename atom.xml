@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-01-16T02:32:13.847Z</updated>
+  <updated>2017-01-16T02:34:52.067Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>android-sdk</title>
+    <title>Android SDK开发随想录</title>
     <link href="https://atwinner.github.io/2017/01/16/android-sdk/"/>
     <id>https://atwinner.github.io/2017/01/16/android-sdk/</id>
     <published>2017-01-16T01:12:31.000Z</published>
-    <updated>2017-01-16T02:32:13.847Z</updated>
+    <updated>2017-01-16T02:34:52.067Z</updated>
     
-    <content type="html"><![CDATA[<p>From：郭琳</p>
+    <content type="html"><![CDATA[<p>From：郭霖</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前更多开发者热衷于应用开发,极少数的开发者才有机会从事SDK开发工作,而市面上关于SDK开发介绍的文章少之又少,以至于让大家觉得SDK开发是相对比较难而且非常无聊的工作,今天我们就来简单的聊聊SDK开发的哪点事。</p>
 <a id="more"></a>
 <h2 id="关于SDK的解释"><a href="#关于SDK的解释" class="headerlink" title="关于SDK的解释"></a>关于SDK的解释</h2><h3 id="什么是SDK"><a href="#什么是SDK" class="headerlink" title="什么是SDK"></a>什么是SDK</h3><p>在开始正文之前,首先来聊聊 SDK 是个啥玩意.</p>
@@ -198,7 +198,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;From：郭琳&lt;/p&gt;
+      &lt;p&gt;From：郭霖&lt;/p&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;目前更多开发者热衷于应用开发,极少数的开发者才有机会从事SDK开发工作,而市面上关于SDK开发介绍的文章少之又少,以至于让大家觉得SDK开发是相对比较难而且非常无聊的工作,今天我们就来简单的聊聊SDK开发的哪点事。&lt;/p&gt;
     
     </summary>
