@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-01-19T04:59:25.318Z</updated>
+  <updated>2017-01-19T10:04:19.625Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://atwinner.github.io/2017/01/19/android-realm/"/>
     <id>https://atwinner.github.io/2017/01/19/android-realm/</id>
     <published>2017-01-19T02:24:30.000Z</published>
-    <updated>2017-01-19T04:59:25.318Z</updated>
+    <updated>2017-01-19T10:04:19.625Z</updated>
     
     <content type="html"><![CDATA[<p>作者：郭霖</p>
 <p>原文作者：<strong>带心情去旅行</strong></p>
@@ -47,11 +47,37 @@
 <li><p><strong>可视化</strong>：Realm 还提供了一个轻量级的数据库查看工具，在Mac Appstore 可以下载“Realm Browser”这个工具，开发者可以查看数据库当中的内容，执行简单的插入和删除数据的操作。（windows上还不清楚）</p>
 </li>
 </ul>
-<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><p>目前不支持Android以外的Java</p>
-<p>Android Studio &gt;= 1.5.1</p>
-<p>较新的Android SDK版本</p>
-<p>JDK version &gt;=7.</p>
-<p>支持API 9(Android 2.3)以及之后的版本</p>
+<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><ul>
+<li>目前不支持Android以外的Java</li>
+<li>Android Studio &gt;= 1.5.1</li>
+<li>较新的Android SDK版本</li>
+<li>JDK version &gt;=7.</li>
+<li>支持API 9(Android 2.3)以及之后的版本</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="加入依赖"><a href="#加入依赖" class="headerlink" title="加入依赖"></a>加入依赖</h3><p>在 project 的 build 中加入依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;io.realm:realm-gradle-plugins:2.2.1&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 module 中加入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;realm-android&apos;</div></pre></td></tr></table></figure>
+<p><strong>Realm从v1.0.0后，不支持Ecilpse，我们推荐使用Android Studio</strong></p>
+<h3 id="创建model"><a href="#创建model" class="headerlink" title="创建model"></a>创建model</h3><p>创建一个 User 类，需要继承 RealmObject。支持 public, protected 和 private 的类以及方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="title">extend</span> <span class="title">RealmObject</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>除了直接继承于 RealmObject 来声明 Realm 数据模型之外，还可以通过实现 RealmModel接口 并添加 <em>@RealmClass</em> 修饰符来声明。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RealmClass</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">RealmModel</span> </span>&#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="支持的属性"><a href="#支持的属性" class="headerlink" title="支持的属性"></a>支持的属性</h4><p>boolean, byte, short, int, long, float, double, String, Date 和 byte[], RealmObject, RealmList&lt;? extends RealmObject&gt;</p>
+<p>还支持 Boolean, Byte, Short, Integer, Long, Float 和 Double</p>
+<p><strong>整数类型 short、int 和 long 都被映射到 Realm 内的相同类型（实际上为 long ）</strong></p>
+<h5 id="PrimaryKey——表示该字段是主键"><a href="#PrimaryKey——表示该字段是主键" class="headerlink" title="@PrimaryKey——表示该字段是主键"></a><em>@PrimaryKey</em>——表示该字段是主键</h5><p>使用过数据库的同学应该看出来了，PrimaryKey 就是主键。使用 @PrimaryKey 来标注，字段类型必须是字符串（String）或整数（byte，short，int或long）以及它们的包装类型（Byte,Short, Integer, 或 Long）。不可以存在多个主键，使用字符串字段作为主键意味着字段被索引（注释 @PrimaryKey 隐式地设置注释 @Index）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@PrimaryKey</span></div><div class="line"><span class="keyword">private</span> String id;</div></pre></td></tr></table></figure>
+<h5 id="Required——表示该字段非空"><a href="#Required——表示该字段非空" class="headerlink" title="@Required——表示该字段非空"></a><em>@Required</em>——表示该字段非空</h5><p>在某些情况下，有一些属性是不能为null的。使用@Required可用于用于强行要求其属性不能为空，只能用于Boolean, Byte, Short, Integer, Long, Float, Double, String, byte[] 和 Date。在其它类型属性上使用 @Required修饰会导致编译失败。</p>
+<p><strong>非基本数据类型不需要使用注解 @Required，因为他们本身就不可为空</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Required</span></div><div class="line"><span class="keyword">private</span> String name;</div></pre></td></tr></table></figure>
+<h5 id="Ignore——表示忽略该字段"><a href="#Ignore——表示忽略该字段" class="headerlink" title="@Ignore——表示忽略该字段"></a><em>@Ignore</em>——表示忽略该字段</h5><p>被添加 @Ignore 标签后，存储数据时会忽略该字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Ignore</span></div><div class="line"><span class="keyword">private</span> String name;</div></pre></td></tr></table></figure>
+<h5 id="Index——添加搜索索引"><a href="#Index——添加搜索索引" class="headerlink" title="@Index——添加搜索索引"></a>@Index——添加搜索索引</h5><p>为字段添加搜索索引，这样会使得插入的速度变慢，数据量也变得更大。不过在查询速度将变得更快，建议只在优化读取性能的特定情况时添加索引。支持索引：String，byte，short，int，long，boolean和Date字段。</p>
+<p>==<strong>注意</strong>：如果你创建Model并运行过，然后修改了Model。那么就需要升级数据库，否则会抛异常。升级方式后面会提到。==</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>使用默认配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Realm.init(<span class="keyword">this</span>);</div><div class="line">Realm mRealm = Realm.getDefaultInstance();</div></pre></td></tr></table></figure>
+<p>这时候会创建一个叫做 default.realm 的Realm文件，一般来说，这个文件位于/data/data/包名/files/。通过 realm.getPath() 来获得该Realm的绝对路径</p>
 ]]></content>
     
     <summary type="html">
