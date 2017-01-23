@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-01-23T03:40:37.112Z</updated>
+  <updated>2017-01-23T03:43:44.736Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>android-rxjava-retrofit-framwork</title>
+    <link href="https://atwinner.github.io/2017/01/23/android-rxjava-retrofit-framwork/"/>
+    <id>https://atwinner.github.io/2017/01/23/android-rxjava-retrofit-framwork/</id>
+    <published>2017-01-23T03:43:44.000Z</published>
+    <updated>2017-01-23T03:43:44.736Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android Realm详解</title>
