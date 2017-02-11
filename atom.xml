@@ -906,9 +906,10 @@
     <link href="https://atwinner.github.io/2016/12/13/my-resume/"/>
     <id>https://atwinner.github.io/2016/12/13/my-resume/</id>
     <published>2016-12-13T04:12:12.000Z</published>
-    <updated>2017-02-11T07:32:21.668Z</updated>
+    <updated>2017-02-11T07:34:01.291Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
+    <content type="html"><![CDATA[<p>我的在线简历<br><a id="more"></a></p>
+<h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
 <li>手机：17019841620</li>
 <li>Email：361922032@qq.com / hufanglin@gmail.com</li>
 <li>QQ/微信号：361922032</li>
@@ -976,9 +977,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;联系方式&quot;&gt;&lt;a href=&quot;#联系方式&quot; class=&quot;headerlink&quot; title=&quot;联系方式&quot;&gt;&lt;/a&gt;联系方式&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;手机：17019841620&lt;/li&gt;
-&lt;li&gt;Email：361922032@qq.com / hufangl
+      &lt;p&gt;我的在线简历&lt;br&gt;
     
     </summary>
     
