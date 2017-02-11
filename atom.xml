@@ -906,7 +906,7 @@
     <link href="https://atwinner.github.io/2016/12/13/my-resume/"/>
     <id>https://atwinner.github.io/2016/12/13/my-resume/</id>
     <published>2016-12-13T04:12:12.000Z</published>
-    <updated>2017-02-11T07:34:01.291Z</updated>
+    <updated>2017-02-11T07:35:37.675Z</updated>
     
     <content type="html"><![CDATA[<p>我的在线简历<br><a id="more"></a></p>
 <h1 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h1><ul>
@@ -936,7 +936,7 @@
 <li>简介：这个项目主要经营的是健身类的项目，用户注册并购买了相应的服务之后，可以在场馆中进行消费。由于本项目中涉及到了大量的图片处理从而导致了内存溢出，因此在此项目中首次使用了<strong>Glide</strong>来处理图片。</li>
 </ul>
 <h4 id="微女王（已完成，已上线）"><a href="#微女王（已完成，已上线）" class="headerlink" title="微女王（已完成，已上线）"></a>微女王（已完成，已上线）</h4><ul>
-<li>开发时间：</li>
+<li>开发时间：2016.1-2016.11</li>
 <li>简介：这是一个多商家的商城类项目，共三期，灵感来自“什么值得买”，商品依托于帖子存在，同时有普通商品、团购商品、限时抢购，预售商品等多种商品。并且对多种订单类型进行了区分，项目的难点在于处理不同商品以及不同商品对应的不同状态的订单。另外在该项目中也一定程度的使用了WebView的<strong>JavaScript注入</strong>功能，实现了和网页的交互，还集成了一个基于WebView的<strong>富文本编辑器</strong>。</li>
 </ul>
 <h4 id="来访（已完成，已上线）"><a href="#来访（已完成，已上线）" class="headerlink" title="来访（已完成，已上线）"></a>来访（已完成，已上线）</h4><ul>
