@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-02-15T14:37:58.113Z</updated>
+  <updated>2017-02-26T01:50:45.843Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>现阶段需要掌握的技术</title>
+    <link href="https://atwinner.github.io/2017/02/26/technology/"/>
+    <id>https://atwinner.github.io/2017/02/26/technology/</id>
+    <published>2017-02-26T09:01:12.000Z</published>
+    <updated>2017-02-26T01:50:45.843Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间请同学帮我内推了某知名网络公司，抱着一腔鸡血只身北上，以为自己的经历了N个项目的洗礼之后已经可以应对大多数场景。可是不然，这次真的真的真的是被虐惨了。这是面试，很多话还是要说，很多原理不是明白就可以，要可以表达出来。<br><a id="more"></a><br>而我又不喜欢临时抱佛脚的突击复习。因此，系统的整理一下，作为一名Android开发程序猿，我到底需要掌握哪些东西才算合格。当然，具体需要哪些知识，也要具体情况具体分析，做游戏的和做应用的要求不一样，做视频APP的和做商城的要求肯定也不一样。</p>
+<h1 id="Java面向对象编程"><a href="#Java面向对象编程" class="headerlink" title="Java面向对象编程"></a>Java面向对象编程</h1><p>1.Java基本数据类型与表达式，分支循环。<br>2.String和StringBuffer的使用、<strong>正则表达式</strong>。<br>3.面向对象的抽象，封装，继承，多态，类与对象，对象初始化和回收；构造函数、this关键字、方法和方法的参数传递过程、static关键字、内部类，<strong>Java的垃极回收机制</strong>，Javadoc介绍。<br>4.对象实例化过程、方法的覆盖、final关键字、抽象类、接口、继承的优点和缺点剖析；对象的多态性：子类和父类之间的转换、抽象类和接口在多态中的应用、多态带来的好处。<br>5.Java异常处理，异常的机制原理。<br>6.常用的设计模式：Singleton、Template、Strategy模式。<br>7.JavaAPI介绍：种基本数据类型包装类，System和Runtime类，Date和DateFomat类等。<br>8.Java集合介绍：Collection、Set、List、ArrayList、Vector、LinkedList、Hashset、TreeSet、Map、HashMap、TreeMap、Iterator、Enumeration等常用集合类API。<br>9.Java I/O输入输出流：File和FileRandomAccess类，字节流InputStream和OutputStream，字符流Reader和Writer，以及相应实现类，IO性能分析，字节和字符的转化流，包装流的概念，以及常用包装类，计算机编码。<br>10.Java高级特性：反射、代理和泛型。<br>11.多线程原理：如何在程序中创建多线程(Thread、Runnable)，线程安全问题，线程的同步，线程之间的通讯、死锁。<br>12.Socket网络编程。</p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>资料来自<a href="http://blog.csdn.net/happy_horse/article/details/50908439" target="_blank" rel="external">http://blog.csdn.net/happy_horse/article/details/50908439</a></p>
+<h2 id="创建型模式5种："><a href="#创建型模式5种：" class="headerlink" title="创建型模式5种："></a>创建型模式5种：</h2><p>单例模式，抽象工厂模式，工厂模式，原型模式，建造者模式。<br>（口诀：单原建造者，东西二厂）</p>
+<h2 id="结构型模式7种："><a href="#结构型模式7种：" class="headerlink" title="结构型模式7种："></a>结构型模式7种：</h2><p>适配器模式，桥接模式，装饰模式，组合模式，外观模式，享元模式，代理模式。<br>（口诀：一器一桥一元一代理；装饰组合外观）</p>
+<h2 id="行为型模式11种："><a href="#行为型模式11种：" class="headerlink" title="行为型模式11种："></a>行为型模式11种：</h2><p>观察者模式，中介者模式，访问者模式，解释器模式，迭代器模式，备忘录模式，责任链模式，状态模式，策略模式，命令模式，模板模式。<br>（口诀：三者两器、一录一链一模板，状态策略命令）</p>
+<h1 id="数据结构基础"><a href="#数据结构基础" class="headerlink" title="数据结构基础"></a>数据结构基础</h1><h1 id="Android-UI"><a href="#Android-UI" class="headerlink" title="Android UI"></a>Android UI</h1><h2 id="Android开发环境搭建："><a href="#Android开发环境搭建：" class="headerlink" title="Android开发环境搭建："></a>Android开发环境搭建：</h2><p>Android介绍，Android开发环境搭建，第一个Android应用程序，Android应用程序目录结构。</p>
+<h2 id="Android初级控件的使用："><a href="#Android初级控件的使用：" class="headerlink" title="Android初级控件的使用："></a>Android初级控件的使用：</h2><p>TextView控件的使用<br>Button控件的使用方法<br>EditText控件的使用方法<br>ImageView的使用方法<br>RadioButton的使用方法<br>Checkbox的使用方法<br>Menu的使用方法</p>
+<h2 id="Android高级控件的使用："><a href="#Android高级控件的使用：" class="headerlink" title="Android高级控件的使用："></a>Android高级控件的使用：</h2><p>Autocompletion的使用方法<br>ListView的使用方法<br>GridView的使用方法<br>Adapter的使用方法<br>Spinner的使用方法<br>Gallary的使用方法<br>ScrollView的使用方法</p>
+<h2 id="对话框与菜单的使用："><a href="#对话框与菜单的使用：" class="headerlink" title="对话框与菜单的使用："></a>对话框与菜单的使用：</h2><p>Dialog的基本概念<br>AlertDialog的使用方法<br>DatePickerDialog的使用方法<br>Menu的使用方法<br>自定义Menu的实现方法</p>
+<h2 id="控件的布局方法："><a href="#控件的布局方法：" class="headerlink" title="控件的布局方法："></a>控件的布局方法：</h2><p>线性布局的使用方法<br>相对布局的使用方法<br>表格布局的使用方法</p>
+<h2 id="多Acitivity管理："><a href="#多Acitivity管理：" class="headerlink" title="多Acitivity管理："></a>多Acitivity管理：</h2><p>AndroidManifest.xml文件的作用<br>Intent的使用方法<br>使用Intent传递数据的方法<br>启动Activity的方法<br>IntentFilter的使用方法<br>Activity Group的使用方法</p>
+<h2 id="自定义控件实现方法："><a href="#自定义控件实现方法：" class="headerlink" title="自定义控件实现方法："></a>自定义控件实现方法：</h2><p>自定义ListView的实现方法<br>可折叠ListView的使用方法<br>自定义Adapter的实现方法<br>自定义View的实现方法<br>动态控件布局的上实现方法</p>
+<h1 id="Android网络编程与数据存储"><a href="#Android网络编程与数据存储" class="headerlink" title="Android网络编程与数据存储"></a>Android网络编程与数据存储</h1><h2 id="基于Android平台的HTTP通讯："><a href="#基于Android平台的HTTP通讯：" class="headerlink" title="基于Android平台的HTTP通讯："></a>基于Android平台的HTTP通讯：</h2><p>Http协议回顾<br>Apache Commons 工具包介绍<br>使用Get方法向服务器提交数据的方法<br>解析服务器响应数据的方法<br>使用POST方法向服务器提交数据的实现方法<br>向服务器提交非文本数据的实现方法<br>使用Http协议实现多线程下载<br>使用Http协议实现断点续传</p>
+<h2 id="Android数据存储技术："><a href="#Android数据存储技术：" class="headerlink" title="Android数据存储技术："></a>Android数据存储技术：</h2><p>SQLite3数据库简介<br>SQL语句回顾<br>SQLite3编程接口介绍<br>SQLite3事务管理<br>SQLite3游标使用方法<br>SQLite3性能分析<br>访问SDCard的方法<br>访问SharedPreferences的方法</p>
+<h2 id="ContentProvider使用方法："><a href="#ContentProvider使用方法：" class="headerlink" title="ContentProvider使用方法："></a>ContentProvider使用方法：</h2><p>ContentProvider实现共享数据、URI的解析与UriMatcher、ContentUris的使用、使用ContentResolver操作ContentProvider、ContentProvider的监听Android当中的异步操作：Handler的使用方法；异步任务的基本概念；AsyncTask的使用方法和实现原理。</p>
+<h1 id="Android图形编程技术"><a href="#Android图形编程技术" class="headerlink" title="Android图形编程技术"></a>Android图形编程技术</h1><p>1、图形处理基础：2D图形编程基础；<br>2、点、线、面等基本图形元素绘制方法；<br>3、Android动画框架简介；<br>4、位移动画的实现方法；<br>5、淡入淡出动画的实现方法；<br>6、旋转动画的实现方法；<br>7、Matrix的使用方法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间请同学帮我内推了某知名网络公司，抱着一腔鸡血只身北上，以为自己的经历了N个项目的洗礼之后已经可以应对大多数场景。可是不然，这次真的真的真的是被虐惨了。这是面试，很多话还是要说，很多原理不是明白就可以，要可以表达出来。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="https://atwinner.github.io/categories/Android/"/>
+    
+    
+      <category term="总结" scheme="https://atwinner.github.io/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Android Context</title>
