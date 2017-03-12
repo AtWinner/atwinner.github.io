@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-03-11T02:40:36.189Z</updated>
+  <updated>2017-03-12T07:13:33.433Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://atwinner.github.io/2017/02/28/memory-leak/"/>
     <id>https://atwinner.github.io/2017/02/28/memory-leak/</id>
     <published>2017-02-28T01:48:12.000Z</published>
-    <updated>2017-03-11T02:40:36.189Z</updated>
+    <updated>2017-03-12T07:13:33.433Z</updated>
     
     <content type="html"><![CDATA[<p>内存泄漏是一个被谈论了很久的问题，也是在平常开发中经常遇到的问题。很多人都提到过这个问题了，并且被这个问题长期困扰着，对于 C++ 来说，内存泄漏就是new出来的对象没有 delete，俗称野指针；而对于 java 来说，就是 new 出来的 Object 放在 Heap 上无法被GC回收。<br><a id="more"></a></p>
 <h1 id="一些有助于理解的知识"><a href="#一些有助于理解的知识" class="headerlink" title="一些有助于理解的知识"></a>一些有助于理解的知识</h1><h2 id="java的内存分配"><a href="#java的内存分配" class="headerlink" title="java的内存分配"></a>java的内存分配</h2><p><strong>静态存储区</strong>：编译时就分配好，在程序整个运行期间都存在。它主要存放静态数据和常量；</p>
@@ -69,33 +69,124 @@
 <tr>
 <td>StrongReference</td>
 <td>强引用</td>
-<td></td>
-<td></td>
+<td>不会被回收</td>
+<td>JVM停止运行时终止</td>
 <td></td>
 </tr>
 <tr>
 <td>SoftReference</td>
 <td>软引用</td>
-<td></td>
-<td></td>
+<td>联合ReferenceQueue构造有效期短/占内存大/生命周期长的对象的二级告诉缓存器（内存不足时会被清空）</td>
+<td>内存不足时终止</td>
 <td></td>
 </tr>
 <tr>
 <td>WeakReference</td>
 <td>弱引用</td>
-<td></td>
-<td></td>
+<td>联合ReferenceQueue构造有效期短/占内存大/生命周期长的对象的一级告诉缓存器（系统发生GC时才清空）</td>
+<td>GC运行后终止</td>
 <td></td>
 </tr>
 <tr>
 <td>PhatomReference</td>
 <td>虚引用</td>
-<td></td>
-<td></td>
+<td>联合ReferenceQueue来跟踪对象被垃圾回收器回收的活动</td>
+<td>GC运行后终止</td>
 <td></td>
 </tr>
 </tbody>
 </table>
+<p>在android开发中，为了防止内存溢出，在处理一些占用内存大并且生命周期较长的对象的时候，可以尽量地使用软引用和弱引用技术。<br>比如，保存Bitmap的软引用到HashMap。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheBySoftRef</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 首先定义一个HashMap,保存软应用对象</span></div><div class="line">    <span class="keyword">private</span> HashMap&lt;String, SoftReference&lt;Bitmap&gt;&gt; imageCache =  <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">    <span class="comment">// 再来定义一个方法，保存Bitmap的软引用到HashMap</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addBitmapToCache</span><span class="params">(String path)</span></span>&#123;</div><div class="line">        <span class="comment">// 强引用的Bitmap对象</span></div><div class="line">        Bitmap bitmap = BitmapFactory.decodeFile(path);</div><div class="line">        <span class="comment">// 软引用的Bitmap对象</span></div><div class="line">        SoftReference&lt;Bitmap&gt; softBitmap = <span class="keyword">new</span> SoftReference&lt;Bitmap&gt;(bitmap);</div><div class="line">        <span class="comment">// 添加该对象到Map使其缓存</span></div><div class="line">        imageCache.put(path,softBitmap);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 获取的时候，可以通过SoftReference的get()的方法得到Bitmap对象</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Bitmap <span class="title">getBitmapByPath</span><span class="params">(String path)</span></span>&#123;</div><div class="line">        <span class="comment">// 从缓存中取软引用的Bitmap对象</span></div><div class="line">        SoftReference&lt;Bitmap&gt; softBitmap = imageCache.get(path);</div><div class="line">        <span class="comment">// 判断是否存在软引用</span></div><div class="line">        <span class="keyword">if</span> (softBitmap == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 通过软引用取出Bitmap对象，如果由于内存不足Bitmap被回收，则取得空；</span></div><div class="line">        <span class="comment">// 如果未被回收，则可重复使用，提高速度</span></div><div class="line">        Bitmap bitmap = softBitmap.get();</div><div class="line">        <span class="keyword">return</span> bitmap;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用软引用以后，在OutOfMemory异常发生之前，这些缓存的图片资源的内存空间可以被释放掉的，从而避免内存达到上限，避免Crash发生。</p>
+<p>如果只是想避免OutOfMemory异常的发生，则可以使用软引用。如果对于应用的性能更在意，想尽快回收一些占用内存比较大的对象，则可以使用弱引用。</p>
+<p>另外可以根据对象是否经常使用来判断选择软引用还是弱引用。如果该对象可能会经常使用的，就尽量用软引用。如果该对象不被使用的可能性更大些，就可以用弱引用。</p>
+<p>前面所说的，创建一个静态Handler内部类，然后对 Handler 持有的对象使用弱引用，这样在回收时也可以回收 Handler 持有的对象，但是这样做虽然避免了 Activity 泄漏，不过 Looper 线程的消息队列中还是可能会有待处理的消息，所以我们在 Activity 的 Destroy 时或者 Stop 时应该移除消息队列 MessageQueue 中的消息。</p>
+<h2 id="匿名内部类-非静态内部类，它们方便却暗藏杀机"><a href="#匿名内部类-非静态内部类，它们方便却暗藏杀机" class="headerlink" title="匿名内部类/非静态内部类，它们方便却暗藏杀机"></a>匿名内部类/非静态内部类，它们方便却暗藏杀机</h2><p>Android开发经常会继承实现Activity或者Fragment或者View。如果你使用了匿名类，而又被异步线程所引用，那得小心，如果没有任何措施同样会导致内存泄漏的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TestInnerBad testInnerBad = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TestInnerBad</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_inner_bad);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (testInnerBad == <span class="keyword">null</span>)&#123;</div><div class="line">            testInnerBad = <span class="keyword">new</span> TestInnerBad();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Runnable runnable1 = <span class="keyword">new</span> MyRunnable();</div><div class="line">        Runnable runnable2 = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>runnable1 和 runnable2的区别就是，runnable2使用了匿名内部类，runnable1是没有什么特别的。但runnable2多出了一个MainActivity的引用，若是这个引用再传入到一个异步线程，此线程在和Activity生命周期不一致的时候，也就造成了Activity的泄露。</p>
+<h2 id="前辈箴言——善用static成员变量"><a href="#前辈箴言——善用static成员变量" class="headerlink" title="前辈箴言——善用static成员变量"></a>前辈箴言——善用static成员变量</h2><p>前面就很明显，当我们的成员变量是static的时候，那么它的生命周期将和整个app的生命周期一致。</p>
+<p>这必然会导致一系列问题，如果你的app进程设计上是长驻内存的，那即使app切到后台，这部分内存也不会被释放。按照现在手机app内存管理机制，占内存较大的后台进程将优先回收，因为如果此app做过进程互保保活，那会造成app在后台频繁重启。当手机安装了你参与开发的app以后一夜时间手机被消耗空了电量、流量，你的app不得不被用户卸载或者静默。</p>
+<p>这里修复的方法是：<br>不要在类初始时初始化静态成员。可以考虑lazy初始化（延迟加载）。架构设计上要思考是否真的有必要这样做，尽量避免。如果架构需要这么设计，那么此对象的生命周期你有责任管理起来。</p>
+<h2 id="远离非静态内部类和匿名类，多用private-static-class"><a href="#远离非静态内部类和匿名类，多用private-static-class" class="headerlink" title="远离非静态内部类和匿名类，多用private static class"></a>远离非静态内部类和匿名类，多用private static class</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TestInnerBad testInnerBad = <span class="keyword">null</span>;</div><div class="line">    </div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TestInnerBad</span> </span>&#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_handler_bad);</div><div class="line">        <span class="keyword">if</span>(testInnerBad == <span class="keyword">null</span>) &#123;</div><div class="line">            testInnerBad = <span class="keyword">new</span> TestInnerBad();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就在Activity内部创建了一个非静态内部类的单例，每次启动Activity时都会使用该单例的数据，这样虽然避免了资源的重复创建，不过这种写法却会造成内存泄漏，因为非静态内部类默认会持有外部类的引用，而该非静态内部类又创建了一个静态的实例，该实例的生命周期和应用的一样长，这就导致了该静态实例一直会持有该Activity的引用，导致Activity的内存资源不能正常回收。正确的做法为：<br>将该内部类设为静态内部类或将该内部类抽取出来封装成一个单例，如果需要使用Context，请按照上面推荐的使用Application 的 Context。当然，Application 的 context 不是万能的，所以也不能随便乱用，对于有些地方则必须使用 Activity 的 Context，对于Application，Service，Activity三者的Context的应用场景如下：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Application</th>
+<th>Service</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StartActivity</td>
+<td>NO1</td>
+<td>NO1</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Show a Dialog</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Layout Inflation</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Start a Service</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Bind to a Service</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Send a Broadcast</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Register BroadcastReceiver</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>Load Resourse Values</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p>其中： NO1表示 Application 和 Service 可以启动一个 Activity，不过需要创建一个新的 task 任务队列。而对于 Dialog 而言，只有在 Activity 中才能创建</p>
+<h2 id="集合对象善清除，以免内存泄漏触不及防"><a href="#集合对象善清除，以免内存泄漏触不及防" class="headerlink" title="集合对象善清除，以免内存泄漏触不及防"></a>集合对象善清除，以免内存泄漏触不及防</h2><p>我们通常会把一些对象的引用加入到集合容器（比如ArrayList）中，当我们不再需要该对象时，并没有把它的引用从集合中清理掉，这样这个集合就会越来越大。如果这个集合是static的话，那情况就更严重了。<br>所以在退出程序之前，将集合里面的东西clear，然后置为null，再退出程序，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> List&lt;String&gt; nameList;</div><div class="line"><span class="keyword">private</span> List&lt;Fragment&gt; list;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onDestroy();</div><div class="line">    <span class="keyword">if</span> (nameList != <span class="keyword">null</span>)&#123;</div><div class="line">        nameList.clear();</div><div class="line">        nameList = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (list != <span class="keyword">null</span>)&#123;</div><div class="line">        list.clear();</div><div class="line">        list = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="webView容易导致内存泄漏"><a href="#webView容易导致内存泄漏" class="headerlink" title="webView容易导致内存泄漏"></a>webView容易导致内存泄漏</h2><p>当我们不再需要使用webView的时候，应该调用它的destory()方法来销毁它，并释放其占用的内存，否则其占用的内存长期也不能回收，从而造成内存泄漏。</p>
+<p>为webView开启另外一个进程，通过AIDL与主线程进行通信，webView所在的进程可以根据业务的需要选择合适的时机进行销毁，从而达到内存的完整释放。</p>
+<p>而另外一些诸如listView的Adapter没有缓存之类的这里就不再多提了。</p>
+<h2 id="做一个小的总结"><a href="#做一个小的总结" class="headerlink" title="做一个小的总结"></a>做一个小的总结</h2><ul>
+<li>构造Adapter时，没有使用缓存的 convertView</li>
+<li>Bitmap对象不在使用时调用recycle()释放内存</li>
+<li>Context使用不当造成内存泄露：不要对一个Activity Context保持长生命周期的引用。尽量在一切可以使用应用ApplicationContext代替Context的地方进行替换。</li>
+<li>非静态内部类的静态实例容易造成内存泄漏：即一个类中如果你不能够控制它其中内部类的生命周期（譬如Activity中的一些特殊Handler等），则尽量使用静态类和弱引用来处理（譬如ViewRoot的实现）。</li>
+<li>警惕线程未终止造成的内存泄露；譬如在Activity中关联了一个生命周期超过Activity的Thread，在退出Activity时切记结束线程。一个典型的例子就是HandlerThread的run方法是一个死循环，它不会自己结束，线程的生命周期超过了Activity生命周期，我们必须手动在Activity的销毁方法中中调运thread.getLooper().quit();才不会泄露。</li>
+<li>对象的注册与反注册没有成对出现造成的内存泄露；譬如注册广播接收器、注册观察者（典型的譬如数据库的监听）等。</li>
+<li>创建与关闭没有成对出现造成的泄露；譬如Cursor资源必须手动关闭，WebView必须手动销毁，流等对象必须手动关闭等。</li>
+<li>不要在执行频率很高的方法或者循环中创建对象（比如onmeasure），可以使用HashTable等创建一组对象容器从容器中取那些对象，而不用每次new与释放。</li>
+<li>避免代码设计模式的错误造成内存泄露；譬如循环引用，A持有B，B持有C，C持有A，这样的设计谁都得不到释放。</li>
+</ul>
 ]]></content>
     
     <summary type="html">
