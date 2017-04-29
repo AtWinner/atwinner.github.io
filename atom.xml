@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-03-12T07:13:33.433Z</updated>
+  <updated>2017-03-12T11:58:31.556Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://atwinner.github.io/2017/02/28/memory-leak/"/>
     <id>https://atwinner.github.io/2017/02/28/memory-leak/</id>
     <published>2017-02-28T01:48:12.000Z</published>
-    <updated>2017-03-12T07:13:33.433Z</updated>
+    <updated>2017-03-12T11:58:31.556Z</updated>
     
     <content type="html"><![CDATA[<p>内存泄漏是一个被谈论了很久的问题，也是在平常开发中经常遇到的问题。很多人都提到过这个问题了，并且被这个问题长期困扰着，对于 C++ 来说，内存泄漏就是new出来的对象没有 delete，俗称野指针；而对于 java 来说，就是 new 出来的 Object 放在 Heap 上无法被GC回收。<br><a id="more"></a></p>
 <h1 id="一些有助于理解的知识"><a href="#一些有助于理解的知识" class="headerlink" title="一些有助于理解的知识"></a>一些有助于理解的知识</h1><h2 id="java的内存分配"><a href="#java的内存分配" class="headerlink" title="java的内存分配"></a>java的内存分配</h2><p><strong>静态存储区</strong>：编译时就分配好，在程序整个运行期间都存在。它主要存放静态数据和常量；</p>
@@ -61,8 +61,7 @@
 <th>种类</th>
 <th>级别</th>
 <th>回收时机</th>
-<th>用途</th>
-<th>生存时间</th>
+<th>用途 </th>
 </tr>
 </thead>
 <tbody>
