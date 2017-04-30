@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-03-12T11:58:31.556Z</updated>
+  <updated>2017-04-30T12:56:05.738Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -14,6 +14,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何使用GitHub 并搭建Maven库</title>
+    <link href="https://atwinner.github.io/2017/03/14/github-maven/"/>
+    <id>https://atwinner.github.io/2017/03/14/github-maven/</id>
+    <published>2017-03-14T01:26:12.000Z</published>
+    <updated>2017-04-30T12:56:05.738Z</updated>
+    
+    <content type="html"><![CDATA[<p>搭建Maven库，是因为这样做确实方便，可以把常用的功能封装成一个库打包好放在GitHub中，既方便使用，也方便和别人共享。至于安全性的问题嘛，我认为不必在意，毕竟框架中时不涉及到业务逻辑的，而我们的框架不是最好的，别人想用也不是坏事嘛。</p>
+<a id="more"></a>
+<h1 id="有一个GitHub账号"><a href="#有一个GitHub账号" class="headerlink" title="有一个GitHub账号"></a>有一个GitHub账号</h1><p>这一点是必须的，如果你从没用过GitHub，请参考这篇博客<a href="http://m.blog.csdn.net/article/details?id=51336332" target="_blank" rel="external">GitHub的注册与使用（详细图解）</a></p>
+<h1 id="创建一个组织"><a href="#创建一个组织" class="headerlink" title="创建一个组织"></a>创建一个组织</h1><p><img src="/img/GitHub-Maven/create_new_organization.png" alt="New Orgnization"><br>如果你已经拥有一个Orgnization，请跳过这一步</p>
+<h1 id="Create-a-new-repository"><a href="#Create-a-new-repository" class="headerlink" title="Create a new repository"></a>Create a new repository</h1><p>注意，这里新建repository是在刚才创建的组织中新建的，而不是在个人账号中创建的，新建的repository的所有权是归组织所有。</p>
+<p><img src="/img/GitHub-Maven/new_repository.png" alt="New Repository"></p>
+<p><img src="/img/GitHub-Maven/new_repository_detail.png" alt="New Repository"></p>
+<h1 id="将项目clone到本地"><a href="#将项目clone到本地" class="headerlink" title="将项目clone到本地"></a>将项目clone到本地</h1><p>举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/hemaapp/hm_Framework.git hm_framework_organization_aar</div></pre></td></tr></table></figure>
+<p>当然你也可以使用git的图形化工具把项目迁移到本地的某个文件夹中，这里我是放在了这里：<br><strong>D:\hm_framework_organization_aar</strong><br>一定要记住这个文件夹，待会要用的。</p>
+<h1 id="在gradle中配置相关信息"><a href="#在gradle中配置相关信息" class="headerlink" title="在gradle中配置相关信息"></a>在gradle中配置相关信息</h1><p>配置项目gradle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply from: &apos;maven-release-aar.gradle&apos;</div></pre></td></tr></table></figure></p>
+<p>配置maven-release-aar.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">// 1.maven-插件</div><div class="line">apply plugin: &apos;maven&apos;</div><div class="line">// 2.maven-信息</div><div class="line">ext &#123;// ext is a gradle closure allowing the declaration of global properties</div><div class="line">    PUBLISH_GROUP_ID = &apos;com.hemaapp&apos;</div><div class="line">    PUBLISH_ARTIFACT_ID = &apos;hm_framework&apos;</div><div class="line">    PUBLISH_VERSION = &apos;0.2&apos;</div><div class="line">&#125;</div><div class="line">// 3.maven-路径</div><div class="line">uploadArchives &#123;</div><div class="line">    repositories.mavenDeployer &#123;</div><div class="line">        def deployPath = file(getProperty(&apos;aar.deployPath&apos;))</div><div class="line">        repository(url: &quot;file://$&#123;deployPath.absolutePath&#125;&quot;)</div><div class="line">        pom.project &#123;</div><div class="line">            groupId project.PUBLISH_GROUP_ID</div><div class="line">            artifactId project.PUBLISH_ARTIFACT_ID</div><div class="line">            version project.PUBLISH_VERSION</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//aar包内包含注释</div><div class="line">task androidSourcesJar(type: Jar) &#123;</div><div class="line">    classifier = &apos;sources&apos;</div><div class="line">    from android.sourceSets.main.java.sourceFiles</div><div class="line">&#125;</div><div class="line"></div><div class="line">artifacts &#123;</div><div class="line">    archives androidSourcesJar</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>配置gradle.properties，这里需要制定项目生成路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aar.deployPath=D:\\hm_framework_organization_aar</div></pre></td></tr></table></figure>
+<h1 id="生成aar"><a href="#生成aar" class="headerlink" title="生成aar"></a>生成aar</h1><p>打开命令行并执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradlew uploadarchives</div></pre></td></tr></table></figure>
+<h1 id="将aar提交到GitHub"><a href="#将aar提交到GitHub" class="headerlink" title="将aar提交到GitHub"></a>将aar提交到GitHub</h1><p>可以打开命令行执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m &apos;content&apos;</div><div class="line">git push</div></pre></td></tr></table></figure>
+<h1 id="在项目中使用aar"><a href="#在项目中使用aar" class="headerlink" title="在项目中使用aar"></a>在项目中使用aar</h1><p>配置项目gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">        maven &#123; url &quot;https://github.com/hemaapp/hm_Framework/raw/master/&quot; &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>配置module的gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.hemaapp:luna_framework:1.0&apos; exclude group: &apos;com.android.support&apos;</div></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>就可以尽情使用了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;搭建Maven库，是因为这样做确实方便，可以把常用的功能封装成一个库打包好放在GitHub中，既方便使用，也方便和别人共享。至于安全性的问题嘛，我认为不必在意，毕竟框架中时不涉及到业务逻辑的，而我们的框架不是最好的，别人想用也不是坏事嘛。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="GitHub" scheme="https://atwinner.github.io/categories/GitHub/"/>
+    
+    
+      <category term="GitHub" scheme="https://atwinner.github.io/tags/GitHub/"/>
+    
+      <category term="Maven" scheme="https://atwinner.github.io/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>内存泄漏</title>

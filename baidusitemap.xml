@@ -3,6 +3,28 @@
 
     
   <url>
+    <loc>https://atwinner.github.io/2017/03/14/github-maven/</loc>
+    <lastmod>2017-04-30T12:56:05.738Z</lastmod>
+    <data>
+        <display>
+        <title>如何使用GitHub 并搭建Maven库</title>
+        <pubTime>2017-03-14T01:26:12.000Z</pubTime>
+        
+        <tag>GitHub </tag>
+         
+        <tag>Maven </tag>
+         
+         
+           
+             
+              <breadCrumb title="GitHub" url="https://atwinner.github.io/categories/GitHub/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://atwinner.github.io/2017/02/28/memory-leak/</loc>
     <lastmod>2017-03-12T11:58:31.556Z</lastmod>
     <data>
