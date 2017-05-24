@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://atwinner.github.io/"/>
-  <updated>2017-04-30T13:39:56.304Z</updated>
+  <updated>2017-05-24T10:06:58.980Z</updated>
   <id>https://atwinner.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://atwinner.github.io/2017/04/30/github-maven/"/>
     <id>https://atwinner.github.io/2017/04/30/github-maven/</id>
     <published>2017-04-30T01:26:12.000Z</published>
-    <updated>2017-04-30T13:39:56.304Z</updated>
+    <updated>2017-05-24T10:06:58.980Z</updated>
     
     <content type="html"><![CDATA[<p>搭建Maven库，是因为这样做确实方便，可以把常用的功能封装成一个库打包好放在GitHub中，既方便使用，也方便和别人共享。至于安全性的问题嘛，我认为不必在意，毕竟框架中时不涉及到业务逻辑的，而我们的框架不是最好的，别人想用也不是坏事嘛。</p>
 <a id="more"></a>
@@ -45,7 +45,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">        maven &#123; url &quot;https://github.com/hemaapp/hm_Framework/raw/master/&quot; &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>配置module的gradle</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.hemaapp:luna_framework:1.0&apos; exclude group: &apos;com.android.support&apos;</div></pre></td></tr></table></figure>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>就可以尽情使用了</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>就可以尽情使用了<br><!-- UY BEGIN --></p>
+<p><div id="uyan_frame"></div></p>
+<p><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2134433"></script><br><!-- UY END --></p>
 ]]></content>
     
     <summary type="html">
